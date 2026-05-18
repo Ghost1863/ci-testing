@@ -25,6 +25,7 @@ async function ensureUploadDir() {
 	}
 }
 
+
 function sendPlainTextResponse(
 	res: MedusaResponse,
 	statusCode: number,
