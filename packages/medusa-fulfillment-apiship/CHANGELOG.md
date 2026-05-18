@@ -1,7 +1,6 @@
 # @gorgo/medusa-fulfillment-apiship
 
-## 0.2.3
-
+## 0.2.3 - 2026-05-18
 ### Patch Changes
 
 - Improve storefront integration
