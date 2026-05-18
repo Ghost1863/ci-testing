@@ -1,75 +1,59 @@
-name: Verify, Build & Deploy
+name: Publish Packages
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
     paths:
-      - 'packages/site/**'
-  pull_request:
-    branches: [ main ]
+      - 'packages/**'
   workflow_dispatch:
 
-env:
-  IMAGE_NAME: gorgo:latest
-  IMAGE_ARTIFACT: gorgo-image
-
 jobs:
-  changes:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-24.04
-    outputs:
-      site: ${{ steps.f.outputs.site }}
-    steps:
-      - run: echo "done"
-
-  verify:
-    needs: changes
-    if: |
-      always() && (
-        github.event_name == 'push' ||
-        github.event_name == 'workflow_dispatch' ||
-        (github.event_name == 'pull_request' && needs.changes.outputs.site == 'true')
-      )
-    name: verify (${{ matrix.task.name }})
-    runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        task:
-          - { name: "biome",       cwd: ".",              cmd: "yarn biome check ." }
-          - { name: "typecheck",   cwd: "packages/site",  cmd: "yarn lint" }
-          - { name: "unit",        cwd: "packages/site",  cmd: "yarn test:unit" }
-          - { name: "integration", cwd: "packages/site",  cmd: "yarn test:integration" }
-    steps:
-      - run: echo "done"
-
-  build:
-    needs: verify
-    if: |
-      !cancelled() &&
-      needs.verify.result == 'success' &&
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+  publish:
     runs-on: ubuntu-latest
-    steps:
-      - run: echo "done"
+    permissions:
+      id-token: write
+      contents: write
+      issues: write
+      pull-requests: write
+    concurrency:
+      group: publish-packages-${{ github.ref }}
+      cancel-in-progress: false
 
-  deploy:
-    needs: build
-    if: |
-      !cancelled() &&
-      needs.build.result == 'success' &&
-      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - name: "gorgojs.ru"
-            host: "109.172.38.189"
-            container: "gorgo"
-            domain: "https://gorgojs.ru"
-          - name: "gorgojs.com"
-            host: "37.233.85.210"
-            container: "gorgo-com"
-            domain: "https://gorgojs.com"
     steps:
-      - run: echo "done"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Generate changesets from conventional commits
+        run: node scripts/generate-changesets.js
+
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+
+      - name: Version and publish packages
+        uses: changesets/action@v1
+        with:
+          version: yarn changeset version && node scripts/stamp-changelog-dates.js
+          publish: yarn changeset publish
+          title: 'chore: release packages'
+          commit: 'chore: release packages'
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

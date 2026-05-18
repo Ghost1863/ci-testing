@@ -24,6 +24,7 @@ import {
 } from "../utils/product-utils";
 import { OnecData, OnecExchangeWorkflowInput } from "../types";
 import { processCategoriesRecursivelyStep } from "../steps/process-categories";
+ 
 
 export const onecExchangeWorkflow = createWorkflow(
 	"sync-from-erp",
