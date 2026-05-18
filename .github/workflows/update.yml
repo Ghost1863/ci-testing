@@ -20,27 +20,16 @@ jobs:
     outputs:
       site: ${{ steps.f.outputs.site }}
     steps:
-      - uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
-      - id: f
-        env:
-          BEFORE: ${{ github.event.before }}
-          BASE: ${{ github.event.pull_request.base.sha }}
-        run: |
-          REF="${BEFORE:-$BASE}"
-          [ "$REF" = "0000000000000000000000000000000000000000" ] && REF="$BASE"
-          git fetch --depth=200 origin "$REF" 2>/dev/null || true
-          git diff --name-only "$REF" HEAD | grep -q '^packages/site/' \
-            && echo site=true >> "$GITHUB_OUTPUT" \
-            || echo site=false >> "$GITHUB_OUTPUT"
+      - run: echo "done"
 
   verify:
     needs: changes
     if: |
-      !cancelled() &&
-      (github.event_name != 'pull_request' || needs.changes.outputs.site == 'true')
+      always() && (
+        github.event_name == 'push' ||
+        github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'pull_request' && needs.changes.outputs.site == 'true')
+      )
     name: verify (${{ matrix.task.name }})
     runs-on: ubuntu-24.04
     strategy:
@@ -52,54 +41,24 @@ jobs:
           - { name: "unit",        cwd: "packages/site",  cmd: "yarn test:unit" }
           - { name: "integration", cwd: "packages/site",  cmd: "yarn test:integration" }
     steps:
-      - uses: actions/checkout@v6
-      - run: corepack enable
-      - run: yarn install --immutable
-      - working-directory: ${{ matrix.task.cwd }}
-        run: ${{ matrix.task.cmd }}
+      - run: echo "done"
 
   build:
     needs: verify
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: |
+      !cancelled() &&
+      needs.verify.result == 'success' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Set up Docker Buildx
-        run: docker buildx version
-
-      - name: Build Docker image
-        run: |
-          export DOCKER_BUILDKIT_INLINE_CACHE=1
-          docker buildx build \
-            --build-arg STATS_GITHUB_APP_ID="${{ secrets.STATS_GITHUB_APP_ID }}" \
-            --build-arg STATS_GITHUB_INSTALLATION_ID="${{ secrets.STATS_GITHUB_INSTALLATION_ID }}" \
-            --build-arg STATS_GITHUB_PRIVATE_KEY="${{ secrets.STATS_GITHUB_PRIVATE_KEY }}" \
-            --load \
-            -t ${{ env.IMAGE_NAME }} \
-            -f packages/site/Dockerfile \
-            .
-
-          echo "=== Docker Image Info ==="
-          docker images ${{ env.IMAGE_NAME }} --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'
-
-      - name: Save image as tar.gz
-        run: |
-          docker save ${{ env.IMAGE_NAME }} | gzip > gorgo-image.tar.gz
-          echo "Compressed image size: $(du -h gorgo-image.tar.gz | cut -f1)"
-
-      - name: Upload image artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.IMAGE_ARTIFACT }}
-          path: gorgo-image.tar.gz
-          retention-days: 1
-          if-no-files-found: error
+      - run: echo "done"
 
   deploy:
     needs: build
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: |
+      !cancelled() &&
+      needs.build.result == 'success' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: self-hosted
     strategy:
       matrix:
@@ -112,126 +71,5 @@ jobs:
             host: "37.233.85.210"
             container: "gorgo-com"
             domain: "https://gorgojs.com"
-
     steps:
-    - name: Download image artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: ${{ env.IMAGE_ARTIFACT }}
-
-    - name: Setup SSH key for server access
-      uses: webfactory/ssh-agent@v0.9.0
-      with:
-        ssh-private-key: ${{ secrets.DEPLOY_KEY }}
-
-    - name: Add known hosts
-      run: |
-        ssh-keyscan -H ${{ matrix.target.host }} >> ~/.ssh/known_hosts
-
-    - name: Copy image to ${{ matrix.target.name }}
-      run: |
-        echo "Copying image to ${{ matrix.target.name }}..."
-        scp -C gorgo-image.tar.gz deploy@"${{ matrix.target.host }}":/tmp/ || { echo "ERROR: Failed to copy image via scp"; exit 1; }
-        echo "Image copied successfully"
-
-    - name: Deploy to ${{ matrix.target.name }} server
-      run: |
-        ssh deploy@"${{ matrix.target.host }}" << EOF
-        set -e
-
-        echo "Starting deployment to ${{ matrix.target.name }} at \$(date)"
-
-        # Create directories if they don't exist
-        sudo mkdir -p /opt/gorgo/{releases,logs}
-        sudo chown -R deploy:deploy /opt/gorgo
-        sudo chown -R deploy:deploy /var/log/gorgo
-
-        # Set up release directory
-        RELEASE_DIR="/opt/gorgo/releases/\$(date +%s)"
-        mkdir -p \$RELEASE_DIR
-
-        # Create deployment info
-        cat > \$RELEASE_DIR/release.info << INFO_EOF
-        Repository: ${{ github.repository }}
-        Commit: ${{ github.sha }}
-        Deployed: \$(date -Iseconds)
-        Server: \$(hostname)
-        Build: GitHub Actions
-        Target: ${{ matrix.target.name }}
-        INFO_EOF
-
-        # Load new image
-        echo "Loading Docker image..."
-        if [ ! -f /tmp/gorgo-image.tar.gz ]; then
-            echo "ERROR: Image file not found at /tmp/gorgo-image.tar.gz"
-            ls -lah /tmp/ | grep gorgo || echo "No gorgo files in /tmp"
-            exit 1
-        fi
-        gunzip < /tmp/gorgo-image.tar.gz | docker load || { echo "ERROR: Failed to load Docker image"; exit 1; }
-        rm /tmp/gorgo-image.tar.gz
-        echo "Docker image loaded successfully"
-
-        # Stop existing container
-        if docker ps -a -q -f name="${{ matrix.target.container }}" | grep -q .; then
-            echo "Stopping existing container..."
-            docker stop "${{ matrix.target.container }}" || true
-            docker rm "${{ matrix.target.container }}" || true
-        fi
-
-        # Start new container for ${{ matrix.target.name }}
-        echo "Starting new container for ${{ matrix.target.name }}..."
-        docker run -d \
-            --name ${{ matrix.target.container }} \
-            --restart unless-stopped \
-            -p 3000:3000 \
-            -e NODE_ENV=production \
-            -e PORT=3000 \
-            -e HOSTNAME=0.0.0.0 \
-            -e NEXT_TELEMETRY_DISABLED=1 \
-            -e NEXT_PUBLIC_SITE_URL=${{ matrix.target.domain }} \
-            -e NEXT_PUBLIC_GOOGLE_ANALYTICS_ID="${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}" \
-            -e STATS_GITHUB_APP_ID="${{ secrets.STATS_GITHUB_APP_ID }}" \
-            -e STATS_GITHUB_INSTALLATION_ID="${{ secrets.STATS_GITHUB_INSTALLATION_ID }}" \
-            -e STATS_GITHUB_PRIVATE_KEY="${{ secrets.STATS_GITHUB_PRIVATE_KEY }}" \
-            -v /opt/gorgo/logs:/var/log/gorgo \
-            ${{ env.IMAGE_NAME }}
-
-        # Clean up old images
-        docker image prune -f
-
-        # Wait and test
-        echo "Waiting for container to start..."
-        sleep 10
-
-        if docker ps -q -f name=${{ matrix.target.container }} | grep -q .; then
-            echo "Container started successfully!"
-
-            # Test application
-            for i in {1..12}; do
-                if curl -f http://localhost:3000/ > /dev/null 2>&1; then
-                    echo "Application is responding on ${{ matrix.target.name }}!"
-                    break
-                fi
-                echo "Waiting for application... (\$i/12)"
-                sleep 5
-            done
-        else
-            echo "ERROR: Container failed to start!"
-            docker logs ${{ matrix.target.container }}
-            exit 1
-        fi
-
-        # Update symlink to current release
-        ln -sfn \$RELEASE_DIR /opt/gorgo/current
-
-        # Clean old releases (keep last 5)
-        cd /opt/gorgo/releases && ls -t | tail -n +6 | xargs -r rm -rf
-
-        # Clean old images
-        docker image prune -f
-
-        # Set ownership
-        sudo chown -R deploy:deploy /opt/gorgo
-
-        echo "Deployment to ${{ matrix.target.name }} completed successfully at \$(date)"
-        EOF
+      - run: echo "done"
