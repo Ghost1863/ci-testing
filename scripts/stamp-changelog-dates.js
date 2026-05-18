@@ -1,5 +1,5 @@
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
+const { readFileSync, writeFileSync, readdirSync } = require('node:fs')
+const { join } = require('node:path')
 
 const today = new Date().toISOString().slice(0, 10)
 const packagesDir = 'packages'

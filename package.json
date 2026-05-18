@@ -2,11 +2,13 @@
   "name": "medusa-plugins",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "packages/utils/*"
   ],
   "packageManager": "yarn@4.9.2",
   "scripts": {
     "update": "./scripts/update.sh",
+    "version-packages": "changeset version && node scripts/stamp-changelog-dates.js",
     "postinstall": "husky",
     "commitlint": "commitlint"
   },
@@ -20,5 +22,3 @@
     "husky": "^9.1.7"
   }
 }
-
-
