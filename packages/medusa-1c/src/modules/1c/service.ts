@@ -1,20 +1,28 @@
-import { MedusaService } from "@medusajs/utils";
-import { OneCSettings } from "./models/one-c-settings";
+import { MedusaService } from "@medusajs/framework/utils"
+import { createTelemetryClient } from "@gorgo/telemetry"
+import { Onec } from "./models/onec"
 
-class OneCSettingsService extends MedusaService({
-	OneCSettings,
+class OnecService extends MedusaService({
+	Onec,
 }) {
+	private static telemetry_ = createTelemetryClient({ packageDir: __dirname })
+
+	constructor(...args: any[]) {
+		super(...args)
+		OnecService.telemetry_.track("plugin.started")
+	}
+
 	async updateSettings(data) {
 		try {
-			const settings = await super.retrieveOneCSettings("1");
-			await super.updateOneCSettings({ ...settings, ...data });
+			const settings = await super.retrieveOnec("1");
+			await super.updateOnecs({ ...settings, ...data });
 		} catch (error) {
-			await super.createOneCSettings({ id: "1", ...data });
+			await super.createOnecs({ id: "1", ...data });
 		}
 	}
 
 	async getSettings() {
-		const settings = await super.retrieveOneCSettings("1");
+		const settings = await super.retrieveOnec("1");
 		if (!settings) {
 			return {
 				id: "1",
@@ -30,4 +38,4 @@ class OneCSettingsService extends MedusaService({
 	}
 }
 
-export default OneCSettingsService;
+export default OnecService;

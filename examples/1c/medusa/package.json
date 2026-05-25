@@ -19,20 +19,17 @@
     "dev": "yarn predev && yarn && medusa develop",
     "dev:tunnel": "concurrently \"yarn dev\" \"yarn tunnel\"",
     "predev": "medusa plugin:add @gorgo/medusa-1c",
-    "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
-    "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
-    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
     "tunnel": "lt --port 9000 --subdomain medusa-1c"
   },
   "dependencies": {
     "@gorgo/medusa-1c": "latest",
-    "@medusajs/admin-sdk": "2.13.5",
-    "@medusajs/cli": "2.13.5",
-    "@medusajs/framework": "2.13.5",
-    "@medusajs/medusa": "2.13.5"
+    "@medusajs/admin-sdk": "2.15.3",
+    "@medusajs/cli": "2.15.3",
+    "@medusajs/framework": "2.15.3",
+    "@medusajs/medusa": "2.15.3"
   },
   "devDependencies": {
-    "@medusajs/test-utils": "2.13.5",
+    "@medusajs/test-utils": "2.15.3",
     "@swc/core": "^1.7.28",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.13",

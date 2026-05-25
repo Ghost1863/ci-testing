@@ -15,26 +15,23 @@
   "scripts": {
     "build": "medusa build",
     "db:migrate": "medusa db:migrate",
-    "dev": "yarn predev && yarn && yarn db:migrate && medusa develop",
+    "dev": "yarn predev && yarn && medusa develop",
     "dev:tunnel": "concurrently \"yarn dev\" \"yarn tunnel\"",
     "predev": "medusa plugin:add @gorgo/medusa-payment-tkassa",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "start:tunnel": "concurrently \"yarn start\" \"yarn tunnel\"",
-    "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
-    "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
-    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
     "tunnel": "lt --port 9000 --subdomain medusa-tkassa"
   },
   "dependencies": {
     "@gorgo/medusa-payment-tkassa": "latest",
-    "@medusajs/admin-sdk": "2.13.1",
-    "@medusajs/cli": "2.13.1",
-    "@medusajs/framework": "2.13.1",
-    "@medusajs/medusa": "2.13.1"
+    "@medusajs/admin-sdk": "2.15.3",
+    "@medusajs/cli": "2.15.3",
+    "@medusajs/framework": "2.15.3",
+    "@medusajs/medusa": "2.15.3"
   },
   "devDependencies": {
-    "@medusajs/test-utils": "2.13.1",
+    "@medusajs/test-utils": "2.15.3",
     "@swc/core": "^1.7.28",
     "@swc/jest": "^0.2.36",
     "@types/jest": "^29.5.13",

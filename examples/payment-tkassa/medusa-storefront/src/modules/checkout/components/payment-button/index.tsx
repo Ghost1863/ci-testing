@@ -8,7 +8,6 @@ import { useElements, useStripe } from "@stripe/react-stripe-js"
 import React, { useState } from "react"
 import ErrorMessage from "../error-message"
 import { useParams, useRouter } from "next/navigation"
-import { trackUiEvent } from "@lib/telemetry/track-event"
 
 type PaymentButtonProps = {
   cart: HttpTypes.StoreCart
@@ -39,11 +38,7 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
       )
     case isManual(paymentSession?.provider_id):
       return (
-        <ManualTestPaymentButton
-          cart={cart}
-          notReady={notReady}
-          data-testid={dataTestId}
-        />
+        <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
       )
     case isTkassa(paymentSession?.provider_id):
       return (
@@ -91,11 +86,6 @@ const StripePaymentButton = ({
   const disabled = !stripe || !elements ? true : false
 
   const handlePayment = async () => {
-    trackUiEvent("tkassa.ui.place_order_clicked", {
-      provider: "stripe",
-      cart_id: cart?.id,
-    })
-
     setSubmitting(true)
 
     if (!stripe || !elements || !card || !cart) {
@@ -191,11 +181,6 @@ const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({
   )
 
   const handlePayment = () => {
-    trackUiEvent("tkassa.ui.place_order_clicked", {
-      provider: "tkassa",
-      cart_id: cart?.id,
-    })
-
     setSubmitting(true)
     const paymentUrl = (paymentSession?.data as any).PaymentURL
     if (paymentUrl) {
@@ -225,13 +210,7 @@ const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({
   )
 }
 
-const ManualTestPaymentButton = ({
-  cart,
-  notReady,
-}: {
-  cart: HttpTypes.StoreCart
-  notReady: boolean
-}) => {
+const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
@@ -246,11 +225,6 @@ const ManualTestPaymentButton = ({
   }
 
   const handlePayment = () => {
-    trackUiEvent("tkassa.ui.place_order_clicked", {
-      provider: "manual",
-      cart_id: cart?.id,
-    })
-
     setSubmitting(true)
 
     onPaymentCompleted()

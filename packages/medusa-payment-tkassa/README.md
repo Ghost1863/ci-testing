@@ -1,12 +1,7 @@
 <p align="center">
-  <a href="https://www.medusajs.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c">
-      <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c">
-      <img alt="Medusa-T-Kassa logo" src="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c" height="120">
-    </picture>
+  <a href="https://docs.gorgojs.com/medusa-plugins/t-kassa">
+    <img alt="Medusa-T-Kassa logo" src="https://raw.githubusercontent.com/gorgojs/medusa-plugins/refs/heads/main/assets/tkassa-medusa-logo.svg" width="270">
   </a>
-  
 </p>
 
 <h1 align="center">
@@ -14,9 +9,9 @@ T-Kassa Payments by T-Bank for Medusa
 </h1>
 
 <p align="center">
-  A Medusa plugin that provides T-Kassa payments by T-Bank.
+  <a href="https://docs.gorgojs.com/medusa-plugins/t-kassa">Documentation</a>
   <br/>
-  <a href="https://docs.gorgojs.com/medusa-plugins/t-kassa">Documentation ↗</a>
+  A Medusa plugin that provides T-Kassa payments by T-Bank. Production-ready.
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-payment-tkassa/README.ru.md">Читать README на русском ↗</a>
 </p>
@@ -28,7 +23,7 @@ T-Kassa Payments by T-Bank for Medusa
     <img src="https://img.shields.io/badge/Medusa-^2.7.0-blue?logo=medusa" alt="Medusa" />
   </a>
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.13.1-green?logo=checkmarx" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
@@ -45,24 +40,39 @@ T-Kassa Payments by T-Bank for Medusa
 </p>
 
 
-## Features
+## Plugin Features
 
-- 🔗  **Seamless integration** with the T-Kassa payment system
-- 🧾  **Receipt generation** compliant with Federal Law No. 54, supporting FFD 1.05 and 1.2 formats
-- 1️⃣  **One-step** (autocapture) and  **2️⃣  two-step** (authorization/hold) payment flows
-- 🔄  **Full refund** and **order cancellation** support
-- 🔔  **Webhook support** for real-time payment status updates
-- 🛡  **Webhook verification** for enhanced security
-- 🔍  **Detailed logging** for debugging
+- **Production-Ready:** Proven in live stores and ready for real-world deployment.
+- **Full Integration with T-Kassa:** Connect your store to T-Kassa for secure and reliable payments.
+- **Receipt Generation:** Online receipts compliant with Federal Law No. 54 (FFD 1.05 and 1.2).
+- **One-Step & Two-Step Payments:** Autocapture or authorization/hold payment flows.
+- **Refunds & Cancellations:** Full refund and order cancellation support.
+- **Webhook Notifications:** Real-time payment status updates with signature verification.
+- **Detailed Logging:** Request and response logs for debugging and support in development mode.
+- **Full Test Coverage:** Comprehensive unit and integration tests covering core flows and edge cases.
+- **Storefront Example:** A complete <a href="https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-tkassa/medusa-storefront" target="_blank">Next.js storefront</a> ready to use as a reference.
 
-## 💬  T-Kassa Plugin Support Chat
+## What is T-Kassa?
 
-Got questions or ideas for new plugin features?  
-Join the Telegram chat – [@medusajs_tkassa](https://t.me/medusajs_tkassa)
+T-Kassa is an internet acquiring service by T-Bank (formerly Tinkoff Bank), one of Russia's largest digital banks. It lets online stores accept card payments, SBP (Faster Payments System), T-Pay, SberPay, Alfa Pay, Mir Pay, and more. Learn more at the <a href="https://www.tbank.ru/business/online-payments/internet-acquiring/" target="_blank">T-Bank website</a>.
 
-## 👥  Medusa.js Community Chat
+## Who uses this plugin
 
-Connect with other Medusa developers on Telegram – [@medusajs_chat](https://t.me/medusajs_chat)
+<p>
+  <a href="https://solidno.shop/">
+    <img src="https://static.gorgojs.com/www/medusa-cases/solidno/solidno-logo.svg" width="50" hspace="5" align="left" alt="solidno.shop logo"/>
+  </a>
+  <b>Solidno</b><br/>
+  <a href="https://solidno.shop/">solidno.shop</a> · Men's clothing brand
+</p>
+
+**Want to add your project to this list?** Make a [Pull Request](https://github.com/gorgojs/medusa-plugins#contribution) or write to [support chat](https://t.me/gorgojs_bot) on Telegram.
+
+## 💬  Support & Community
+
+Got questions or ideas about the plugin? Join the Telegram support chat — [@medusajs_tkassa](https://t.me/medusajs_tkassa)
+
+Connect with other Medusa developers on Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Requirements
 
@@ -78,7 +88,7 @@ yarn add @gorgo/medusa-payment-tkassa
 npm install @gorgo/medusa-payment-tkassa
 ```
 
-## 📘  Documentation
+## Documentation
 
 The complete installation, configuration, and usage guide for this plugin is available on the [Gorgo documentation website](https://docs.gorgojs.com/medusa-plugins/t-kassa).
 

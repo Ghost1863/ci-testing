@@ -46,5 +46,18 @@
   "toc": {
     "onThisPage": "На этой странице",
     "backToTop": "Наверх"
+  },
+  "components": {
+    "medusaTypeList": {
+      "default": "По умолчанию",
+      "example": "Пример",
+      "optional": "необязательный"
+    },
+    "note": {
+      "default": "Примечание",
+      "warning": "Внимание",
+      "success": "Успешно",
+      "error": "Важно"
+    }
   }
 }

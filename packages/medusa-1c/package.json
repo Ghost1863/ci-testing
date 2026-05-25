@@ -1,8 +1,7 @@
 {
 	"name": "@gorgo/medusa-1c",
-	"version": "0.1.0",
+	"version": "0.1.7",
 	"description": "Medusa plugin for integration with 1C:Enterprise",
-	"private": true,
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/gorgojs/medusa-plugins",
@@ -50,16 +49,17 @@
 		"prepublishOnly": "medusa plugin:build"
 	},
 	"dependencies": {
+		"@gorgo/telemetry": "^1.0.0",
 		"commerceml-parser": "^3.0.3",
 		"lodash": "^4.17.21",
-		"sluga": "^0.2.1"
+		"sluga": "^0.2.1",
+		"unzipper": "^0.12.3"
 	},
 	"devDependencies": {
 		"@medusajs/admin-sdk": "^2.8.0",
 		"@medusajs/cli": "^2.8.0",
 		"@medusajs/framework": "^2.8.0",
 		"@medusajs/icons": "^2.8.0",
-		"@medusajs/medusa": "^2.8.0",
 		"@medusajs/test-utils": "^2.8.0",
 		"@medusajs/ui": "^4.0.14",
 		"@mikro-orm/cli": "6.4.3",
@@ -72,6 +72,7 @@
 		"@types/node": "^20.0.0",
 		"@types/react": "^18.3.2",
 		"@types/react-dom": "^18.2.25",
+		"@types/unzipper": "^0",
 		"awilix": "^8.0.1",
 		"pg": "^8.13.0",
 		"prop-types": "^15.8.1",
@@ -87,7 +88,6 @@
 		"@medusajs/cli": "^2.8.0",
 		"@medusajs/framework": "^2.8.0",
 		"@medusajs/icons": "^2.8.0",
-		"@medusajs/medusa": "^2.8.0",
 		"@medusajs/test-utils": "^2.8.0",
 		"@medusajs/ui": "^4.0.14",
 		"@mikro-orm/cli": "6.4.3",

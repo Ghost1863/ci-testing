@@ -36,44 +36,25 @@ import {
   getAmountFromSmallestUnit,
   getSmallestUnit,
 } from "../utils"
+import { createTelemetryClient } from "@gorgo/telemetry"
 
 abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
   static identifier = "tkassa"
+  private static telemetry_ = createTelemetryClient({ packageDir: __dirname })
+
   protected serverUrl_ = "https://securepay.tinkoff.ru"
   protected options_: TKassaOptions
   protected client_: TKassa
   protected logger_: Logger
 
-  protected async trackAnalyticsEvent(
-    event: string,
-    properties: Record<string, unknown> = {}
-  ): Promise<void> {
-    const analytics = this.container.analytics as
-      | { track?: (data: { event: string; properties?: Record<string, unknown> }) => Promise<void> }
-      | undefined
-
-    if (!analytics?.track) {
-      return
-    }
-
-    try {
-      await analytics.track({
-        event,
-        properties,
-      })
-    } catch (error) {
-      this.logger_.debug(
-        `TkassaBase.trackAnalyticsEvent failed for ${event}: ${error instanceof Error ? error.message : String(error)}`
-      )
-    }
-  }
-
   static validateOptions(options: TKassaOptions): void {
+    TkassaBase.telemetry_.track("plugin.started")
+    
     if (!isDefined(options.terminalKey)) {
       throw new Error("Required option `terminalKey` is missing in T-Kassa provider")
     }
     if (!isDefined(options.password)) {
-      throw new Error("Required option `password` is missing in T-Kassa provider")
+      throw new Error("Required option `password` is missing in T-Kassa provider")  
     }
     if (isDefined(options.useReceipt)) {
       if (!isDefined(options.taxation)) {
@@ -174,23 +155,8 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
       const output = { id: paymentId, data: { ...response, receipt } }
       this.logger_.debug("TkassaBase.initiatePayment output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.initiated", {
-        payment_id: paymentId,
-        order_id: data?.session_id,
-        amount,
-        currency_code,
-        pay_type: initPaymentParams.PayType,
-        capture: this.options_.capture ?? true,
-        has_receipt: Boolean(this.options_.useReceipt),
-      })
       return output
     } catch (e) {
-      await this.trackAnalyticsEvent("tkassa.payment.initiation_failed", {
-        order_id: data?.session_id,
-        amount,
-        currency_code,
-        error_message: e instanceof Error ? e.message : String(e),
-      })
       throw this.buildError("An error occurred in initiatePayment", e)
     }
   }
@@ -212,18 +178,8 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
       const output = { data: { ...response, receipt: input.data?.receipt } }
       this.logger_.debug("TkassaBase.capturePayment output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.captured", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-        amount: input.amount,
-      })
       return output
     } catch (e) {
-      await this.trackAnalyticsEvent("tkassa.payment.capture_failed", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-        error_message: e instanceof Error ? e.message : String(e),
-      })
       throw this.buildError("An error occurred in capturePaymentt", e)
     }
   }
@@ -236,11 +192,6 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
     const output = await this.getPaymentStatus(input)
     this.logger_.debug("TkassaBase.authorizePayment output:\n" + JSON.stringify(output, null, 2))
-    await this.trackAnalyticsEvent("tkassa.payment.authorized", {
-      payment_id: input.data?.PaymentId,
-      order_id: input.data?.OrderId,
-      status: output.status,
-    })
     return output
   }
 
@@ -302,19 +253,8 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
       const output = { data: { ...response, receipt: data?.receipt } }
       this.logger_.debug("TkassaBase.refundPayment output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.refunded", {
-        payment_id: paymentId,
-        order_id: data?.OrderId,
-        amount: amountValue || amount,
-      })
       return output
     } catch (e) {
-      await this.trackAnalyticsEvent("tkassa.payment.refund_failed", {
-        payment_id: paymentId,
-        order_id: data?.OrderId,
-        amount: amountValue || amount,
-        error_message: e instanceof Error ? e.message : String(e),
-      })
       throw this.buildError("An error occurred in refundPayment", e)
     }
   }
@@ -336,17 +276,8 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
       const output = { data: { ...response, receipt: input.data?.receipt } }
       this.logger_.debug("TkassaBase.cancelPayment output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.canceled", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-      })
       return output
     } catch (e) {
-      await this.trackAnalyticsEvent("tkassa.payment.cancel_failed", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-        error_message: e instanceof Error ? e.message : String(e),
-      })
       throw this.buildError("An error occurred in cancelPayment", e)
     }
   }
@@ -368,17 +299,8 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
 
       const output = { data: { ...response, receipt: input.data?.receipt } }
       this.logger_.debug("TkassaBase.retrievePayment output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.retrieved", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-      })
       return output
     } catch (e) {
-      await this.trackAnalyticsEvent("tkassa.payment.retrieve_failed", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-        error_message: e instanceof Error ? e.message : String(e),
-      })
       throw this.buildError("An error occurred in retrievePayment", e)
     }
   }
@@ -415,12 +337,6 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
         data: { ...response as unknown as Record<string, unknown>, receipt: input.data?.receipt },
       }
       this.logger_.debug("TkassaBase.getPaymentStatus output:\n" + JSON.stringify(output, null, 2))
-      await this.trackAnalyticsEvent("tkassa.payment.status_checked", {
-        payment_id: paymentId,
-        order_id: input.data?.OrderId,
-        tkassa_status: response.Status,
-        medusa_status: output.status,
-      })
       return output
     } catch (e: any) {
       throw this.buildError("An error occurred in getPaymentStatus", e)
@@ -434,17 +350,12 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
     )
 
     const isValid = await this.isWebhookEventValid(webhookData)
-    const data = webhookData.data as unknown as TkassaEvent
-    if (!isValid) {
-      await this.trackAnalyticsEvent("tkassa.webhook.rejected", {
-        order_id: data?.OrderId,
-        payment_id: data?.PaymentId,
-        status: data?.Status,
-      })
+    if (!isValid)
       return {
         action: PaymentActions.NOT_SUPPORTED
       }
-    }
+
+    const data = webhookData.data as unknown as TkassaEvent
 
     const result = {
       action: PaymentStatusesMap[PaymentStatuses[data.Status]] ?? PaymentSessionStatus.ERROR,
@@ -454,13 +365,6 @@ abstract class TkassaBase extends AbstractPaymentProvider<TKassaOptions> {
       }
     }
     this.logger_.debug("TkassaBase.getWebhookActionAndData result:\n" + JSON.stringify(result, null, 2))
-    await this.trackAnalyticsEvent("tkassa.webhook.accepted", {
-      order_id: data.OrderId,
-      payment_id: data.PaymentId,
-      status: data.Status,
-      action: result.action,
-      amount: result.data.amount,
-    })
     return result
   }
 

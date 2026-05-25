@@ -1,10 +1,6 @@
 <p align="center">
-  <a href="https://www.medusajs.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c">
-      <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c">
-      <img alt="Medusa-T-Kassa logo" src="https://github.com/user-attachments/assets/1c5291d8-b708-4337-8776-fb81d7b5cf9c" height="120">
-    </picture>
+  <a href="https://docs.gorgojs.ru/medusa-plugins/t-kassa">
+    <img alt="Medusa-T-Kassa logo" src="https://raw.githubusercontent.com/gorgojs/medusa-plugins/refs/heads/main/assets/tkassa-medusa-logo.svg" width="270">
   </a>
 </p>
 
@@ -13,9 +9,9 @@
 </h1>
 
 <p align="center">
-  Плагин Medusa для приёма платежей через Т-Касса от Т-Банка.
+  <a href="https://docs.gorgojs.ru/medusa-plugins/t-kassa">Документация</a>
   <br/>
-  <a href="https://docs.gorgojs.ru/medusa-plugins/t-kassa">Документация ↗</a>
+  Плагин Medusa для приёма платежей через Т-Касса от Т-Банка. Готов к продакшен.
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-payment-tkassa/README.md">Read README in English ↗</a>
 </p>
@@ -27,7 +23,7 @@
     <img src="https://img.shields.io/badge/Medusa-^2.7.0-blue?logo=medusa" alt="Medusa" />
   </a>
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.13.1-green?logo=checkmarx" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
@@ -43,24 +39,39 @@
   </a>
 </p>
 
-## Возможности
+## Plugin Features
 
-- 🔗  **Бесшовная интеграция** с платёжной системой Т-Касса
-- 🧾  **Формирование онлайн-чеков** в соответствии с 54-ФЗ
-- 1️⃣  **Одностадийные** (автосписание) и  **2️⃣  двухстадийные** (авторизация/холдирование) сценарии оплаты
-- 🔄  **Возвраты и отмена заказов**
-- 🔔  **Вебхук-уведомления** о статусах платежей в реальном времени
-- 🛡  **Проверка вебхуков** для обеспечения безопасности
-- 🔍  **Подробное логирование** для отладки
+- **Готов к продакшену:** Проверен в боевых магазинах и готов к использованию в реальных проектах.
+- **Полная интеграция с Т-Касса:** Подключение к платёжной системе Т-Касса для надёжной обработки платежей.
+- **Формирование чеков:** Онлайн-чеки в соответствии с 54-ФЗ (ФФД 1.05 и 1.2).
+- **Одно- и двухстадийная оплата:** Автосписание или авторизация с холдированием.
+- **Возвраты и отмены:** Полный возврат и отмена заказов.
+- **Вебхук-уведомления:** Статусы платежей в реальном времени с проверкой подписи.
+- **Подробное логирование:** Логи запросов и ответов для отладки и поддержки в режиме разработки.
+- **Полное тестовое покрытие:** Юнит- и интеграционные тесты, покрывающие основные сценарии и граничные случаи.
+- **Пример витрины магазина:** Готовый [пример витрины на Next.js](https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-tkassa/medusa-storefront) для использования как референс.
 
-## 💬  Чат поддержки плагина Т-Касса
+## Что такое Т-Касса?
 
-Есть вопросы или идеи по новым функциям плагина?   
-Присоединяйтесь к чату в Telegram – [@medusajs_tkassa](https://t.me/medusajs_tkassa)
+Т-Касса — сервис интернет-эквайринга от Т-Банка (ранее Тинькофф Банк), одного из крупнейших цифровых банков России. Позволяет интернет-магазинам принимать оплату картами, через CБП, T-Pay, SberPay, Alfa Pay, Mir Pay и другими способами. Подробнее на <a href="https://www.tbank.ru/business/online-payments/internet-acquiring/" target="_blank">сайте Т-Банка</a>.
 
-## 👥  Чат сообщества Medusa.js
+## Кто использует этот плагин
 
-Общайтесь в Telegram с другими разработчиками Medusa – [@medusajs_chat](https://t.me/medusajs_chat)
+<p>
+  <a href="https://solidno.shop/">
+    <img src="https://static.gorgojs.com/www/medusa-cases/solidno/solidno-logo.svg" width="50" hspace="5" align="left" alt="Логотип solidno.shop"/>
+  </a>
+  <b>Solidno</b><br/>
+  <a href="https://solidno.shop/">solidno.shop</a> · Бренд мужской одежды
+</p>
+
+**Хотите добавить ваш проект в этот список?** Сделайте [Pull Request](https://github.com/gorgojs/medusa-plugins#contribution) или напишите в [чат поддержки](https://t.me/gorgojs_bot) в Telegram.
+
+## 💬  Поддержка и сообщество
+
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_tkassa](https://t.me/medusajs_tkassa)
+
+Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Требования
 
@@ -76,7 +87,7 @@ yarn add @gorgo/medusa-payment-tkassa
 npm install @gorgo/medusa-payment-tkassa
 ```
 
-## 📘  Документация
+## Документация
 
 Полное руководство по установке, настройке и использованию плагина доступно на [сайте документации Gorgo](https://docs.gorgojs.ru/medusa-plugins/t-kassa).
 

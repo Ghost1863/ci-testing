@@ -6,10 +6,9 @@ services:
     ports:
       - 5432:5432
     volumes:
-     - pgdata:/var/lib/postgresql
+     - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres # Default user for PostgreSQL
-      POSTGRES_PASSWORD: postgres # Password for PostgreSQL
       POSTGRES_HOST_AUTH_METHOD: trust # Allow connections without a password
     configs:
       # This configuration file is used to initialize the database with necessary databases
@@ -62,4 +61,9 @@ configs:
     # This file will be executed when the database is initialized
     # It creates the necessary databases for all the examples
     content: |
+      CREATE DATABASE medusa_1c;
+      CREATE DATABASE medusa_feed;
+      CREATE DATABASE medusa_feed_yandex;
+      CREATE DATABASE medusa_fulfillment_apiship;
       CREATE DATABASE medusa_payment_tkassa;
+      CREATE DATABASE medusa_payment_robokassa;

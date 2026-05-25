@@ -24,7 +24,4 @@ build
 !.yarn/versions
 
 .medusa
-
-.yalc
-yalc.lock
 static

@@ -21,7 +21,7 @@ description: "Узнайте, как интегрировать платёжны
 
 ![Структура проекта Medusa Storefront после обновления файла с константами](https://github.com/user-attachments/assets/0aee001e-958f-40c6-b329-618e318ff019)
 
-```ts
+```ts title="src/lib/constants.tsx"
 export const paymentInfoMap: Record<
   string,
   { title: string; icon: React.ReactNode }
@@ -52,7 +52,7 @@ export const isTkassa = (providerId?: string) => {
 
 ![Структура проекта Medusa Storefront после обновления файлов cookie](https://github.com/user-attachments/assets/4274d249-6994-4d9f-b4b6-98f2016f0e9f)
 
-```ts
+```ts title="src/lib/data/cookies.ts"
 export const setCartId = async (cartId: string) => {
   cookies.set("_medusa_cart_id", cartId, {
     // ... другие настройки cookie
@@ -73,15 +73,31 @@ export const setCartId = async (cartId: string) => {
 
 ![Структура проекта Medusa Storefront после обновления файла для компонента оплаты](https://github.com/user-attachments/assets/5c4dfcf9-57e7-48f6-956c-0e0a91ec6c8f)
 
-```ts
-await initiatePaymentSession(cart, {
-  provider_id: selectedPaymentMethod,
-  data: {
-    SuccessURL: `${getBaseURL()}/api/capture-payment/${cart?.id}?country_code=${countryCode}`,
-    FailURL: `${getBaseURL()}/api/capture-payment/${cart?.id}?country_code=${countryCode}`,
-    cart: cart,
+```ts title="src/modules/checkout/components/payment/index.tsx"
+import { getBaseURL } from "@lib/util/env"
+
+const Payment = ({
+  // ...
+}) => {
+  // ...
+  const handleSubmit = async () => {
+    setIsLoading(true)
+    try {
+      // ...
+      const countryCode = cart?.shipping_address?.country_code
+      if (!checkActiveSession) {
+        await initiatePaymentSession(cart, {
+          provider_id: selectedPaymentMethod,
+          data: {
+            SuccessURL: `${getBaseURL()}/api/capture-payment/${cart?.id}?country_code=${countryCode}`,
+            FailURL: `${getBaseURL()}/api/capture-payment/${cart?.id}?country_code=${countryCode}`,
+            cart: cart,
+          }
+        })
+      }
+    }
   }
-})
+}
 ```
 
 При инициализации платёжной сессии для Т-Касса параметры `SuccessURL` и `FailURL` определяют, куда будет перенаправлен покупатель после попытки оплаты. Оба URL динамически формируются на основе базового URL витрины, идентификатора корзины и выбранного кода страны.
@@ -96,14 +112,52 @@ await initiatePaymentSession(cart, {
 
 ![Структура проекта Medusa Storefront после обновления файла для компонента кнопки оплаты](https://github.com/user-attachments/assets/4b76ee52-747f-452e-9160-6365f742e33e)
 
-```ts
-const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({ cart, notReady }) => {
+```ts title="src/modules/checkout/components/payment-button/index.tsx"
+import { 
+  // ...
+  isTkassa
+} from "@lib/constants"
+import { useRouter } from "next/navigation"
+
+const PaymentButton: React.FC<PaymentButtonProps> = ({
+  cart,
+  "data-testid": dataTestId,
+}) => {
+  // ...
+  switch (true) {
+    // ... другие проверки
+    case isTkassa(paymentSession?.provider_id):
+      return (
+        <TkassaPaymentButton
+          notReady={notReady}
+          cart={cart}
+          data-testid={dataTestId}
+        />
+      )
+    // ... другие проверки
+  }
+}
+
+// ... другие компоненты кнопок оплаты
+
+type TkassaPaymentProps = {
+  cart: HttpTypes.StoreCart
+  notReady: boolean
+  "data-testid"?: string
+}
+
+const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({
+  cart,
+  notReady,
+  "data-testid": dataTestId,
+}) => {
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const router = useRouter()
 
   const paymentSession = cart.payment_collection?.payment_sessions?.find(
-    session => session.provider_id === "pp_tkassa_tkassa"
+    session =>
+      session.provider_id === "pp_tkassa_tkassa"
   )
 
   const handlePayment = () => {
@@ -116,6 +170,24 @@ const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({ cart, notReady }) =
       setSubmitting(false)
     }
   }
+
+  return (
+    <>
+      <Button
+        disabled={notReady}
+        isLoading={submitting}
+        onClick={handlePayment}
+        data-testid={dataTestId}
+        size="large"
+      >
+        Place order
+      </Button>
+      <ErrorMessage
+        error={errorMessage}
+        data-testid="tkassa-payment-error-message"
+      />
+    </>
+  )
 }
 ```
 
@@ -135,7 +207,7 @@ const TkassaPaymentButton: React.FC<TkassaPaymentProps> = ({ cart, notReady }) =
 
 ![Структура проекта Medusa Storefront после создания файла для API route](https://github.com/user-attachments/assets/89ac89de-62ad-4b6c-af61-ab6299587dbf)
 
-```ts
+```ts title="src/app/api/capture-payment/[cartId]/route.ts"
 import { NextRequest, NextResponse } from "next/server"
 import { revalidateTag } from "next/cache"
 import {
@@ -159,7 +231,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
   const cartCacheTag = await getCacheTag("carts")
   revalidateTag(cartCacheTag)
   const { cart } = await sdk.store.cart.retrieve(cartId, {
-    fields: "id, order_link.order_id"
+    fields: "id, order_link.order_id, items.total"
   },
     headers
   )
@@ -197,7 +269,7 @@ export async function GET(req: NextRequest, { params }: { params: Params }) {
 
 Полный код интеграции можно посмотреть в разделе [сomparison page](https://github.com/gorgojs/medusa-plugins/compare/%40gorgo/medusa-payment-tkassa%400.0.1...main), откройте вкладку `Files changed` и изучите различия в каталоге `examples/payment-tkassa/medusa-storefront`. Или запустите `diff` в терминале:
 
-```bash
+```bash title="Terminal"
 git clone https://github.com/gorgojs/medusa-plugins
 cd medusa-plugins
 git diff @gorgo/medusa-payment-tkassa@0.0.1...main -- examples/payment-tkassa/medusa-storefront

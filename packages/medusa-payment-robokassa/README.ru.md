@@ -1,10 +1,6 @@
 <p align="center">
-  <a href="https://www.medusajs.com">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/119f3faf-da2e-476e-bf08-6e557de689b6">
-      <source media="(prefers-color-scheme: light)" srcset="https://github.com/user-attachments/assets/119f3faf-da2e-476e-bf08-6e557de689b6">
-      <img alt="Medusa-Robokassa logo" src="https://github.com/user-attachments/assets/119f3faf-da2e-476e-bf08-6e557de689b6" height="120">
-    </picture>
+  <a href="https://docs.gorgojs.ru/medusa-plugins/robokassa">
+    <img alt="Medusa-Robokassa logo" src="https://raw.githubusercontent.com/gorgojs/medusa-plugins/refs/heads/main/assets/robokassa-medusa-logo.svg" width="270">
   </a>
 </p>
 
@@ -13,9 +9,9 @@
 </h1>
 
 <p align="center">
-  Плагин Medusa для приёма платежей через Robokassa.
+  <a href="https://docs.gorgojs.ru/medusa-plugins/robokassa">Документация</a>
   <br/>
-  <a href="https://docs.gorgojs.ru/medusa-plugins/robokassa">Документация ↗</a>
+  Плагин Medusa для приёма платежей через Robokassa. Готов к использованию в продакшене.
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-payment-robokassa/README.md">Read README in English →</a>
 </p>
@@ -27,7 +23,7 @@
     <img src="https://img.shields.io/badge/Medusa-^2.7.0-blue?logo=medusa" alt="Medusa" />
   </a>
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.13.1-green?logo=checkmarx" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
@@ -43,25 +39,34 @@
   </a>
 </p>
 
-## Возможности
+## Возможности плагина
 
-- 🔗  **Бесшовная интеграция** с платежной системой Robokassa  
-- 🧾  **Формирование онлайн-чеков** в соответствии с 54-ФЗ  
-- 1️⃣  Поддержка **одностадийных** (автосписание) и  **2️⃣  двухстадийных** (авторизация/холдирование) сценариев оплаты  
-- 🔔  **Вебхук-уведомления** о статусах платежей в реальном времени  
-- 🔄  **Возвраты и отмена заказов**  
-- 🛡  **Проверка подписи вебхуков** для обеспечения безопасности  
-- ⚙️  Поддержка **тестового режима** для имитация оплаты без реальных списаний  
-- 🔍  **Подробное логирование** для отладки и аудита транзакций  
+- **Полная интеграция с Robokassa**  
+  Подключение к платёжной системе Robokassa для надёжной обработки платежей.
+- **Формирование чеков**  
+  Онлайн-чеки в соответствии с 54-ФЗ.
+- **Одно- и двухстадийная оплата**  
+  Автосписание или авторизация с холдированием.
+- **Возвраты и отмены**  
+  Возврат средств и отмена заказов.
+- **Вебхук-уведомления**  
+  Статусы платежей в реальном времени с проверкой подписи.
+- **Тестовый режим**  
+  Имитация оплаты без реальных списаний.
+- **Подробное логирование**  
+  Логи запросов и ответов для отладки и поддержки в режиме разработки.
+- **Пример витрины магазина**  
+  Готовый [пример витрины на Next.js](https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-robokassa/medusa-storefront) для использования как референс.
 
-## 💬  Чат поддержки плагина Robokassa
+## Что такое Robokassa?
 
-Есть вопросы или идеи по новым функциям плагина?   
-Присоединяйтесь к чату в Telegram – [@medusajs_robokassa](https://t.me/medusajs_robokassa)
+<a href="https://robokassa.com" target="_blank">Robokassa</a> — российский платёжный агрегатор, поддерживающий банковские карты, электронные кошельки, мобильные платежи, СБП и другие способы оплаты. Широко используется малым и средним бизнесом в России благодаря простой интеграции и широкому охвату платёжных методов.
 
-## 👥  Чат сообщества Medusa.js
+## 💬  Поддержка и сообщество
 
-Общайтесь в Telegram с другими разработчиками Medusa – [@medusajs_chat](https://t.me/medusajs_chat)
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_robokassa](https://t.me/medusajs_robokassa)
+
+Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Требования
 
@@ -77,7 +82,7 @@ yarn add @gorgo/medusa-payment-robokassa
 npm install @gorgo/medusa-payment-robokassa
 ```
 
-## 📘  Документация
+## Документация
 
 Полное руководство по установке, настройке и использованию плагина доступно на [сайте документации Gorgo](https://docs.gorgojs.ru/medusa-plugins/robokassa).
 

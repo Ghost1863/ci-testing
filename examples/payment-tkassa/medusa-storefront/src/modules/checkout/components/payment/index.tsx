@@ -13,7 +13,6 @@ import Divider from "@modules/common/components/divider"
 import { usePathname, useRouter, useSearchParams, useParams } from "next/navigation"
 import { useCallback, useEffect, useState } from "react"
 import { getBaseURL } from "@lib/util/env"
-import { trackUiEvent } from "@lib/telemetry/track-event"
 
 const Payment = ({
   cart,
@@ -70,23 +69,12 @@ const Payment = ({
   )
 
   const handleEdit = () => {
-    trackUiEvent("tkassa.ui.edit_payment_clicked", {
-      cart_id: cart?.id,
-      step: "payment",
-    })
-
     router.push(pathname + "?" + createQueryString("step", "payment"), {
       scroll: false,
     })
   }
 
   const handleSubmit = async () => {
-    trackUiEvent("tkassa.ui.submit_payment_clicked", {
-      cart_id: cart?.id,
-      selected_payment_method: selectedPaymentMethod,
-      has_active_session: Boolean(activeSession),
-    })
-
     setIsLoading(true)
     try {
       const shouldInputCard =

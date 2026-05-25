@@ -3,6 +3,7 @@ import path from "node:path";
 import { convert } from "html-to-text";
 import MiniSearch from "minisearch";
 import { renderToString } from "react-dom/server";
+import { createElement, type ReactElement, type ReactNode } from "react";
 import { pluginsSidebar, toolsSidebar } from "../src/lib/sidebar";
 import {
   type ContentItem,
@@ -10,6 +11,86 @@ import {
   type LocalizedString,
   locales,
 } from "../src/types";
+
+function remarkCodeTitle() {
+  return (tree: any) => {
+    function walk(node: any) {
+      if (node.type === "code" && node.meta) {
+        const m = node.meta.match(/title="([^"]+)"/);
+        if (m) {
+          node.data = node.data ?? {};
+          node.data.hProperties = node.data.hProperties ?? {};
+          node.data.hProperties.title = m[1];
+        }
+      }
+      node.children?.forEach(walk);
+    }
+    walk(tree);
+  };
+}
+
+type SearchIndexType = {
+  name: string;
+  type: string;
+  optional?: boolean;
+  defaultValue?: string;
+  example?: string;
+  description?: string;
+  children?: SearchIndexType[];
+};
+
+type SearchIndexTypeListProps = {
+  types: SearchIndexType[];
+  sectionTitle?: string;
+};
+
+function renderTypeItem(
+  typeItem: SearchIndexType,
+  key: string,
+): ReactElement {
+  const details = [
+    typeItem.description && createElement("p", { key: `${key}-description` }, typeItem.description),
+    typeItem.defaultValue &&
+      createElement("p", { key: `${key}-default` }, `Default: ${typeItem.defaultValue}`),
+    typeItem.example &&
+      createElement("p", { key: `${key}-example` }, `Example: ${typeItem.example}`),
+    (typeItem.children?.length ?? 0) > 0 &&
+      createElement(
+        "ul",
+        { key: `${key}-children` },
+        typeItem.children?.map((child, index) =>
+          renderTypeItem(child, `${key}-child-${index}`),
+        ),
+      ),
+  ].filter(Boolean);
+
+  return createElement(
+    "li",
+    { key },
+    createElement(
+      "p",
+      null,
+      `${typeItem.name} (${typeItem.type})${typeItem.optional ? " optional" : ""}`,
+    ),
+    ...details,
+  );
+}
+
+function SearchIndexTypeList({
+  types,
+  sectionTitle,
+}: SearchIndexTypeListProps): ReactElement {
+  return createElement(
+    "section",
+    null,
+    sectionTitle ? createElement("h3", null, sectionTitle) : null,
+    createElement(
+      "ul",
+      null,
+      types.map((typeItem, index) => renderTypeItem(typeItem, `type-${index}`)),
+    ),
+  );
+}
 
 const miniSearchOptions = {
   fields: ["title", "content", "section", "sectionHierarchy"],
@@ -57,6 +138,7 @@ function getAllMdxFiles(
   return arrayOfFiles;
 }
 
+
 async function mdxToPlainText(
   mdxContent: string,
 ): Promise<{ title: string; description: string; content: string }> {
@@ -67,8 +149,20 @@ async function mdxToPlainText(
     description: string;
   }>({
     source: mdxContent,
+    components: {
+      TypeList: SearchIndexTypeList,
+      MedusaTypeList: SearchIndexTypeList,
+      Note: ({ children }: { children?: ReactNode }) =>
+        createElement("div", null, children),
+      UsedByList: () => createElement("div", null),
+      CodeTabs: ({ children }: { children?: ReactNode }) => createElement("div", null, children),
+      CodeTab: ({ children }: { children?: ReactNode }) => createElement("div", null, children),
+    },
     options: {
       parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [remarkCodeTitle],
+      },
     },
   });
 

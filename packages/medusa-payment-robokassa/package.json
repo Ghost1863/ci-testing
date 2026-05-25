@@ -1,8 +1,7 @@
 {
   "name": "@gorgo/medusa-payment-robokassa",
-  "version": "0.2.12",
+  "version": "0.3.3",
   "description": "Robokassa payment provider for Medusa",
-  "private": true,
   "files": [
     ".medusa/server"
   ],
@@ -40,6 +39,7 @@
     "prepublishOnly": "medusa plugin:build"
   },
   "dependencies": {
+    "@gorgo/telemetry": "^1.0.0",
     "base64url": "^3.0.1",
     "fast-xml-parser": "^5.2.5",
     "md5": "^2.3.0"

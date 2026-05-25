@@ -1,11 +1,19 @@
+<p align="center">
+  <a href="https://docs.gorgojs.com/medusa-plugins/1c-enterprise">
+    <img alt="Medusa-1C logo" src="https://raw.githubusercontent.com/gorgojs/medusa-plugins/refs/heads/main/assets/1c-medusa-logo.svg" width="270">
+  </a>
+</p>
+
 <h1 align="center">
   Medusa – 1C:Enterprise Integration
 </h1>
 
 <p align="center">
+  <a href="https://docs.gorgojs.com/medusa-plugins/1c-enterprise">Documentation</a>
+  <br/>
   Sync products and orders between Medusa and 1C:Enterprise.
   <br/>
-  <a href="https://docs.gorgojs.com/medusa-plugins/1c-enterprise">Documentation ↗</a>
+  <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-1c/README.ru.md">Читать README на русском ↗</a>
 </p>
 
 <br/>
@@ -15,7 +23,7 @@
     <img src="https://img.shields.io/badge/Medusa-^2.8.0-blue?logo=medusa" alt="Medusa" />
   </a>
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.13.5-green?logo=checkmarx" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
@@ -33,16 +41,13 @@
 
 ## Status
 
-🚧 Work in progress, see the [Roadmap](#roadmap).  
+> 🚧 Work in progress, see the [Roadmap](#roadmap).  
 
-## 💬 1C:Enterprise Plugin Support Chat
+## 💬  Support & Community
 
-Got questions or ideas for new plugin features?  
-Join the Telegram chat – [@medusajs_1c](https://t.me/medusajs_1c)
+Got questions or ideas about the plugin? Join the Telegram support chat — [@medusajs_1c](https://t.me/medusajs_1c)
 
-## 👥 Medusa.js Community Chat
-
-Connect with other Medusa developers on Telegram – [@medusajs_chat](https://t.me/medusajs_chat)
+Connect with other Medusa developers on Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Roadmap
 
@@ -55,7 +60,7 @@ Connect with other Medusa developers on Telegram – [@medusajs_chat](https://t.
 - [ ] Admin UI extension for journaling and audit logs
 - [ ] Detailed documentation
 
-## Prerequisites
+## Requirements
 
 - Medusa server v2.8.0 or later
 - Node.js v20 or later
@@ -68,7 +73,7 @@ yarn add @gorgo/medusa-1c
 npm install @gorgo/medusa-1c
 ```
 
-## 📘  Documentation
+## Documentation
 
 The complete installation, configuration, and usage guide for this plugin is available on the [Gorgo documentation website](https://docs.gorgojs.com/medusa-plugins/1c-enterprise).
 
