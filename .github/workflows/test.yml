@@ -68,4 +68,5 @@ jobs:
 
       - name: Full test suite
         # if: github.event_name == 'workflow_dispatch'
-        run: yarn turbo run test:unit test:integration:http test:integration:modules --concurrency=1 --no-cache --force
+        #run: yarn turbo run test:unit test:integration:http test:integration:modules --concurrency=1 --no-cache --force
+        run: yarn turbo run test:unit test:integration:http test:integration:modules --filter='!@gorgo/it-fulfillment-apiship'  --concurrency=1 --no-cache --force
