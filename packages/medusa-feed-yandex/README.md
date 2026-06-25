@@ -20,16 +20,16 @@ Yandex Market YML Feed Generator for Medusa
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.8.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-feed-yandex.json&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_yandex">
-    <img src="https://img.shields.io/badge/Telegram-Medusa.js⊷Yandex_Support_Chat-0088cc?logo=telegram&style=social" alt="Medusa.js⊷Yandex on Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Support_Chat-0088cc?logo=telegram&style=social" alt="Telegram Support Chat" />
   </a>
 </p>
 
@@ -41,34 +41,27 @@ Yandex Market YML Feed Generator for Medusa
 
 ## Plugin Features
 
-- **YML Feed Export**  
-  Generate product feeds in Yandex Market YML format.
-- **Feed URL Access**  
-  Easily retrieve feed URLs for integration with Yandex Market.
-- **Admin UI**  
-  Manage feeds directly from the Medusa Admin panel.
-- **Scheduled Generation**  
-  Automatic feed exports at configurable intervals.
-- **Category Filtering**  
-  Select specific product categories for export.
-- **Manual Generation**  
-  Trigger feed generation on demand.
-- **File Module Integration**  
-  Uses Medusa File Module with built-in provider support.
+- **YML Feed Export:** Generate product feeds in Yandex Market YML format.
+- **Feed URL Access:** Easily retrieve feed URLs for integration with Yandex Market.
+- **Admin UI:** Manage feeds directly from the Medusa Admin panel.
+- **Scheduled Generation:** Automatic feed exports at configurable intervals.
+- **Category Filtering:** Select specific product categories for export.
+- **Manual Generation:** Trigger feed generation on demand.
+- **File Module Integration:** Uses Medusa File Module with built-in provider support.
 
-## What is YML?
+## What is YML
 
 <a href="https://yandex.com/support/direct/feeds/requirements-yml.html" target="_blank">YML (Yandex Market Language)</a> is an XML-based format used by Yandex Market and Yandex Direct for product data feeds. It's the standard way to list your products on Yandex Market, one of the largest e-commerce marketplaces in Eastern Europe and Central Asia.
 
 ## 💬  Support & Community
 
-Got questions or ideas about the plugin? Join the Telegram support chat — [@medusajs_yandex](https://t.me/medusajs_yandex)
+Got questions or ideas about the plugin? Join the Telegram support chat — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Connect with other Medusa developers on Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Requirements
 
-- Medusa server v2.8.0 or later
+- Medusa server v2.14.0 or later
 - Node.js v20 or later
 
 ## Installation

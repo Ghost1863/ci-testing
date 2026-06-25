@@ -20,16 +20,16 @@
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.8.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-1c.json&label=%D0%9F%D1%80%D0%BE%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%20%D1%81%20Medusa&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_1c">
-    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки_Medusa.js⊷1C-0088cc?logo=telegram&style=social" alt="Чат Medusa.js⊷1C в Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки-0088cc?logo=telegram&style=social" alt="Чат поддержки в Telegram" />
   </a>
 </p>
 
@@ -45,7 +45,7 @@
 
 ## 💬  Поддержка и сообщество
 
-Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_1c](https://t.me/medusajs_1c)
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
@@ -62,7 +62,7 @@
 
 ## Требования
 
-- Medusa v2.8.0 или новее
+- Medusa v2.14.0 или новее
 - Node.js v20 или новее
 
 ## Установка

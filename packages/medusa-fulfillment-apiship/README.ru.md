@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://docs.gorgojs.com/medusa-plugins/apiship">Документация</a>
   <br/>
-  Плагин Medusa для интеграции с агрегатором служб доставки ApiShip, предоставляющий вашему магазину доступ к множеству перевозчиков с минимальной настройкой. Готов к использованию в продакшене.
+  Плагин Medusa для интеграции с агрегатором служб доставки ApiShip, предоставляющий вашему магазину доступ к 40+ перевозчикам при минимальной настройке. Готов к продакшену.
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-fulfillment-apiship/README.md">Read README in English ↗</a>
 </p>
@@ -20,16 +20,16 @@
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.13.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-fulfillment-apiship.json&label=%D0%9F%D1%80%D0%BE%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%20%D1%81%20Medusa&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_apiship">
-    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки_Medusa.js⊷ApiShip-0088cc?logo=telegram&style=social" alt="Чат Medusa.js⊷ApiShip в Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки-0088cc?logo=telegram&style=social" alt="Чат поддержки в Telegram" />
   </a>
 </p>
 
@@ -47,24 +47,18 @@
 
 ## Возможности плагина
 
-- **Подключение 40+ служб доставки**  
-  Работа по прямым договорам с множеством перевозчиков через единую интеграцию.
-- **Автоматический расчёт доставки**  
-  Учёт габаритов, веса заказа, персональных скидок и тарифов служб доставки.
-- **Доставка в пункты выдачи**  
-  Выбор ПВЗ из списка или на интерактивной карте.
-- **Создание заказа в один клик**  
-  Оформление отправления в ApiShip прямо из Medusa Admin без ручного ввода данных.
-- **Печать отгрузочных документов**  
-  Этикетки, накладные и другие документы доступны в Medusa Admin.
-- **Пример витрины магазина**  
-  Готовый [пример витрины на Next.js](https://github.com/gorgojs/medusa-plugins/tree/main/examples/fulfillment-apiship/medusa-storefront) - можно использовать как референс.
-- **Тестовый режим**  
-  Симуляция калькуляций и заказов без влияния на реальные данные.
-- **Подробное логирование**  
-  Логи запросов и ответов для отладки и поддержки в режиме разработки.
+- **Готов к продакшену:** Проверен в боевых магазинах и готов к использованию в реальных проектах.
+- **Подключение 40+ служб доставки:** Работа по прямым договорам с множеством перевозчиков через единую интеграцию.
+- **Автоматический расчёт доставки:** Учёт габаритов, веса заказа, персональных скидок и тарифов служб доставки.
+- **Доставка в пункты выдачи:** Выбор ПВЗ из списка или на интерактивной карте.
+- **Создание заказа в один клик:** Оформление отправления в ApiShip прямо из Medusa Admin без ручного ввода данных.
+- **Печать отгрузочных документов:** Этикетки, накладные и другие документы доступны в Medusa Admin.
+- **Полное тестовое покрытие:** Юнит- и интеграционные тесты, покрывающие основные сценарии и граничные случаи.
+- **Пример витрины магазина:** Готовый [пример витрины на Next.js](https://github.com/gorgojs/medusa-plugins/tree/main/examples/fulfillment-apiship/medusa-storefront) - можно использовать как референс.
+- **Тестовый режим:** Симуляция калькуляций и заказов без влияния на реальные данные.
+- **Подробное логирование:** Логи запросов и ответов для отладки и поддержки в режиме разработки.
 
-## Что такое ApiShip?
+## Что такое ApiShip
 
 <a href="https://apiship.ru/" target="_blank">ApiShip</a> — российская платформа-агрегатор служб доставки, которая подключает интернет-магазины к 40+ курьерским службам через единый API. Вместо отдельной интеграции с каждым перевозчиком, ApiShip предоставляет унифицированный интерфейс для расчёта тарифов, создания заказов, отслеживания и формирования документов по всем подключённым провайдерам.
 
@@ -72,13 +66,13 @@
 
 ## 💬  Поддержка и сообщество
 
-Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_apiship](https://t.me/medusajs_apiship)
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Требования
 
-- Medusa v2.13.0 или новее
+- Medusa v2.14.0 или новее
 - Node.js v20 или новее
 - Аккаунт ApiShip — [зарегистрируйтесь или войдите](https://a.apiship.ru)
 

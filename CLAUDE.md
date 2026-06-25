@@ -12,19 +12,24 @@ This repository is organized as a Yarn v4 monorepo with shared workspaces for pl
 │   ├── feed-yandex/
 │   ├── fulfillment-apiship/
 │   ├── payment-robokassa/
-│   └── payment-tkassa/
+│   ├── payment-tkassa/
+│   └── payment-yookassa/
 ├── packages/
 │   ├── medusa-1c/
 │   ├── medusa-feed-yandex/
 │   ├── medusa-fulfillment-apiship/
 │   ├── medusa-payment-robokassa/
 │   ├── medusa-payment-tkassa/
+│   ├── medusa-payment-yookassa/
 │   └── utils/
 │       └── gorgo-telemetry/
 ├── scripts/
-└── www/
-    └── docs/
+└── docs/                            # documentation content (built by gorgo/packages/docs)
+    ├── medusa-plugins/
+    └── tools/
 ```
+
+> The documentation **site builder** lives in the private `gorgojs/gorgo` repo at `packages/docs`. This repo holds only the docs **content** (MDX); the builder syncs it in at build time.
 
 ## Essential Commands
 
@@ -87,6 +92,7 @@ Commits must follow [Conventional Commits](https://www.conventionalcommits.org/)
   - `fulfillment-apiship`
   - `payment-robokassa`
   - `payment-tkassa`
+  - `payment-yookassa`
 - Package scope from `packages/utils/` (folder name as-is):
   - `gorgo-telemetry`
 - Repo-level:
@@ -104,6 +110,15 @@ chore(deps): bump @medusajs/medusa to 2.14.0
 ```
 
 Scope maps directly to changeset bump type: `feat` → minor, `fix/perf/refactor/docs/revert/test` → patch, breaking (`!`) → major.
+
+## Changelog Generation
+
+`CHANGELOG.md` entries read `<description> by @author in #<pr> (<commit>)` (the `#<pr>` is omitted for direct pushes) and are grouped by **commit type**, not by semver bump (the bump is conveyed by the version number itself). The pipeline:
+
+1. `scripts/generate-changesets.js` turns conventional commits into changesets and stamps each with `commit:` and `author: @<git-author>` (resolved in one GraphQL batch via `scripts/github-authors.js`). The `author:` line makes the credit the **commit author**, not the PR author — `@changesets/changelog-github` otherwise overrides it with the PR author.
+2. `changeset version` renders entries through `.changeset/changelog.cjs` (a thin wrapper over `@changesets/changelog-github` that restyles each line to `… by @author in #<pr> (<commit>)`). `scripts/format-changelog.js` (wired into `release:version`) then regroups each new version block into sections — Highlights, Breaking Changes, Features, Bug Fixes, …, Chores — deriving the section from each commit's conventional type. Both steps are idempotent.
+
+Section logic and the curated `HIGHLIGHT_COMMITS` set live in `scripts/changelog-utils.js`. Blocks with no commit link (pre-automation entries) are left untouched. `scripts/rewrite-changelogs.js` is the one-off tool that applied this format to historical changelogs.
 
 ## Package Architecture
 
@@ -162,7 +177,7 @@ Use the **medusa** MCP (`docs.medusajs.com`) for Medusa v2 APIs and patterns, an
 |---|---|---|
 | `publish.yml` | Push to main (packages/**) | Auto-generate changesets → version → publish to npm |
 | `update-medusa-version.yml` | Daily 6 AM + manual | Check latest Medusa, run integration tests, open update PR |
-| `notify-deploy.yml` | Push to main (www/docs/**) | Notify automation repo to deploy docs |
+| `notify-deploy-docs.yml` | Push to main (docs/**) | Notify automation repo (`gorgo-docs-updated`) to rebuild & deploy docs |
 
 ## Workflow: Research → Plan → Implement
 

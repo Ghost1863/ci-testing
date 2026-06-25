@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://docs.gorgojs.ru/medusa-plugins/t-kassa">Документация</a>
   <br/>
-  Плагин Medusa для приёма платежей через Т-Касса от Т-Банка. Готов к продакшен.
+  Плагин Medusa для приёма платежей через Т-Касса от Т-Банка. Готов к продакшену.
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-payment-tkassa/README.md">Read README in English ↗</a>
 </p>
@@ -20,16 +20,16 @@
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.7.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-payment-tkassa.json&label=%D0%9F%D1%80%D0%BE%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%20%D1%81%20Medusa&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_tkassa">
-    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки_Medusa.js⊷T--Kassa-0088cc?logo=telegram&style=social" alt="Чат Medusa.js⊷T-Kassa в Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки-0088cc?logo=telegram&style=social" alt="Чат поддержки в Telegram" />
   </a>
 </p>
 
@@ -39,7 +39,7 @@
   </a>
 </p>
 
-## Plugin Features
+## Возможности плагина
 
 - **Готов к продакшену:** Проверен в боевых магазинах и готов к использованию в реальных проектах.
 - **Полная интеграция с Т-Касса:** Подключение к платёжной системе Т-Касса для надёжной обработки платежей.
@@ -51,7 +51,7 @@
 - **Полное тестовое покрытие:** Юнит- и интеграционные тесты, покрывающие основные сценарии и граничные случаи.
 - **Пример витрины магазина:** Готовый [пример витрины на Next.js](https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-tkassa/medusa-storefront) для использования как референс.
 
-## Что такое Т-Касса?
+## Что такое Т-Касса
 
 Т-Касса — сервис интернет-эквайринга от Т-Банка (ранее Тинькофф Банк), одного из крупнейших цифровых банков России. Позволяет интернет-магазинам принимать оплату картами, через CБП, T-Pay, SberPay, Alfa Pay, Mir Pay и другими способами. Подробнее на <a href="https://www.tbank.ru/business/online-payments/internet-acquiring/" target="_blank">сайте Т-Банка</a>.
 
@@ -69,13 +69,13 @@
 
 ## 💬  Поддержка и сообщество
 
-Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_tkassa](https://t.me/medusajs_tkassa)
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Требования
 
-- Medusa v2.7.0 или выше  
+- Medusa v2.14.0 или выше  
 - Node.js v20 или выше  
 - Аккаунт Т-Бизнес с подключённым интернет-эквайрингом Т-Касса – [зарегистрируйтесь или войдите](https://www.tbank.ru/kassa/?utm_source=partners_sme&utm_medium=prt.utl&utm_campaign=business.int_acquiring.7-3S975SBSY&partnerId=7-3S975SBSY&agentId=5-B6HGU9OD&agentSsoId=1316b7dd-3a90-4167-9d35-37910431a19c)
 

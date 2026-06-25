@@ -20,16 +20,16 @@
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.8.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Протестировано_с_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-feed-yandex.json&label=%D0%9F%D1%80%D0%BE%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BE%20%D1%81%20Medusa&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_yandex">
-    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки_Medusa.js⊷Yandex-0088cc?logo=telegram&style=social" alt="Чат Medusa.js⊷Yandex в Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки-0088cc?logo=telegram&style=social" alt="Чат поддержки в Telegram" />
   </a>
 </p>
 
@@ -41,34 +41,27 @@
 
 ## Возможности плагина
 
-- **Экспорт YML-фида**  
-  Генерация фида товаров в формате Yandex Market YML.
-- **Доступ к URL фидов**  
-  Удобное получение ссылок для интеграции с Яндекс Маркетом.
-- **Интерфейс в админке**  
-  Управление фидами прямо из Medusa Admin.
-- **Генерация по расписанию**  
-  Автоматический экспорт фидов с настраиваемым интервалом.
-- **Фильтрация по категориям**  
-  Выбор конкретных категорий товаров для экспорта.
-- **Ручная генерация**  
-  Запуск генерации фида по требованию.
-- **Интеграция с File Module**  
-  Использует Medusa File Module с поддержкой встроенных провайдеров.
+- **Экспорт YML-фида:** Генерация фида товаров в формате Yandex Market YML.
+- **Доступ к URL фидов:** Удобное получение ссылок для интеграции с Яндекс Маркетом.
+- **Интерфейс в админке:** Управление фидами прямо из Medusa Admin.
+- **Генерация по расписанию:** Автоматический экспорт фидов с настраиваемым интервалом.
+- **Фильтрация по категориям:** Выбор конкретных категорий товаров для экспорта.
+- **Ручная генерация:** Запуск генерации фида по требованию.
+- **Интеграция с File Module:** Использует Medusa File Module с поддержкой встроенных провайдеров.
 
-## Что такое YML?
+## Что такое YML
 
 <a href="https://yandex.com/support/direct/feeds/requirements-yml.html" target="_blank">YML (Yandex Market Language)</a> — формат фида товаров на основе XML, используемый Яндекс Маркетом и Яндекс Директом. Это стандартный способ размещения товаров на Яндекс Маркете — одном из крупнейших маркетплейсов в России.
 
 ## 💬  Поддержка и сообщество
 
-Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@medusajs_yandex](https://t.me/medusajs_yandex)
+Есть вопросы по плагину или идеи? Пишите в чат поддержки в Telegram — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Общайтесь с другими разработчиками Medusa в Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Требования
 
-- Medusa сервер v2.8.0 или новее
+- Medusa сервер v2.14.0 или новее
 - Node.js v20 или новее
 
 ## Установка

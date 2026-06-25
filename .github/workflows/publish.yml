@@ -19,18 +19,37 @@ jobs:
     concurrency:
       group: publish-packages-${{ github.ref }}
       cancel-in-progress: false
+    outputs:
+      published: ${{ steps.changesets.outputs.published }}
+      docs_changed: ${{ steps.docs.outputs.changed }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
+
+      - name: Detect docs changes
+        id: docs
+        if: github.event_name == 'push'
+        shell: bash
+        run: |
+          base='${{ github.event.before }}'
+          if ! git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            base="$(git rev-parse HEAD^ 2>/dev/null || true)"
+          fi
+          files="$(git diff --name-only "$base" '${{ github.sha }}' 2>/dev/null || true)"
+          if grep -q '^docs/' <<< "$files"; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Enable Corepack
         run: corepack enable
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           registry-url: "https://registry.npmjs.org"
@@ -40,20 +59,31 @@ jobs:
 
       - name: Generate changesets from conventional commits
         run: node scripts/generate-changesets.js
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
 
       - name: Generate GitHub App token
         id: app-token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v3
         with:
-          app-id: ${{ secrets.GH_APP_ID }}
+          client-id: ${{ secrets.GH_APP_CLIENT_ID }}
           private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
 
       - name: Version and publish packages
+        id: changesets
         uses: changesets/action@v1
         with:
-          version: yarn version
+          version: yarn release:version
           publish: yarn changeset publish
           title: 'chore: release packages'
           commit: 'chore: release packages'
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+  notify-docs:
+    needs: publish
+    if: needs.publish.outputs.published == 'true' || needs.publish.outputs.docs_changed == 'true'
+    uses: ./.github/workflows/notify-deploy-docs.yml
+    with:
+      from_publish: true
+    secrets: inherit

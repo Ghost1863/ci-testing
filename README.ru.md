@@ -26,12 +26,31 @@
 </p>
 
 <p align="center">
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Чат_поддержки-0088cc?logo=telegram&style=social" alt="Чат поддержки в Telegram" />
+  </a>
+</p>
+
+<p align="center">
   <a href="https://t.me/medusajs_chat">
     <img src="https://img.shields.io/badge/Telegram-Medusa.js_Dev_Community_Chat-0088cc?logo=telegram&style=social" alt="Medusa.js Dev Community Chat on Telegram" />
   </a>
 </p>
 
 ## Плагины Medusa
+
+<p>
+  <a href="./packages/medusa-payment-yookassa">
+    <img src="https://raw.githubusercontent.com/gorgojs/medusa-plugins/refs/heads/main/assets/yookassa-logo.svg" width="100" align="left" alt="ЮKassa logo">
+  </a>
+  <strong><a href="./packages/medusa-payment-yookassa">ЮKassa</a></strong><br/>
+  Провайдер платежей: создание платеже, обработка вебхуков, возвраты и фискальные чеки по 54-ФЗ. В комплекте пример витрины.<br/>
+  <a href="https://docs.gorgojs.ru/medusa-plugins/yookassa">документация</a> |
+  <a href="https://www.npmjs.com/package/@gorgo/medusa-payment-yookassa">npm</a> |
+  <a href="./examples/payment-yookassa">пример</a>
+</p>
+
+##
 
 <p>
   <a href="./packages/medusa-payment-tkassa">
@@ -41,8 +60,7 @@
   Провайдер платежей: создание платежей, обработка вебхуков, возвраты и фискальные чеки по 54-ФЗ. В комплекте пример витрины.<br/>
   <a href="https://docs.gorgojs.ru/medusa-plugins/t-kassa">документация</a> |
   <a href="https://www.npmjs.com/package/@gorgo/medusa-payment-tkassa">npm</a> |
-  <a href="./examples/payment-tkassa">пример</a> |
-  <a href="https://t.me/medusajs_tkassa">поддержка в Telegram</a>
+  <a href="./examples/payment-tkassa">пример</a>
 </p>
 
 ##
@@ -57,8 +75,7 @@
   Провайдер платежей: создание платежей, обработка уведомлений, возвраты и фискальные чеки по 54-ФЗ. В комплекте пример интеграции с витриной.<br/>
   <a href="https://docs.gorgojs.ru/medusa-plugins/robokassa">документация</a> |
   <a href="https://www.npmjs.com/package/@gorgo/medusa-payment-robokassa">npm</a> |
-  <a href="./examples/payment-robokassa">пример</a> |
-  <a href="https://t.me/medusajs_robokassa">поддержка в Telegram</a>
+  <a href="./examples/payment-robokassa">пример</a>
 </p>
 
 ##
@@ -73,8 +90,7 @@
   Провайдер доставки: расчёт тарифов, создание отправлений, доставка в пункты выдачи, получение сопроводительных документов и управление из Medusa Admin.<br/>
   <a href="https://docs.gorgojs.ru/medusa-plugins/apiship">документация</a> |
   <a href="https://www.npmjs.com/package/@gorgo/medusa-fulfillment-apiship">npm</a> |
-  <a href="./examples/fulfillment-apiship">пример</a> |
-  <a href="https://t.me/medusajs_apiship">поддержка в Telegram</a>
+  <a href="./examples/fulfillment-apiship">пример</a>
 </p>
 
 ##
@@ -89,8 +105,7 @@
   Синхронизация каталога и заказов между Medusa и 1С:Предприятием. В комплекте пример backend-приложения.<br/>
   <a href="https://docs.gorgojs.ru/medusa-plugins/1c-enterprise">документация</a> |
   <a href="https://www.npmjs.com/package/@gorgo/medusa-1c">npm</a> |
-  <a href="./examples/1c">пример</a> |
-  <a href="https://t.me/medusajs_1c">поддержка в Telegram</a>
+  <a href="./examples/1c">пример</a>
 </p>
 
 ##
@@ -105,8 +120,7 @@
   Экспорт каталога в формате YML (Yandex Market Language) с управлением фидами из Medusa Admin.<br/>
   <a href="https://docs.gorgojs.ru/medusa-plugins/yandex-yml-feed">документация</a> |
   <a href="https://www.npmjs.com/package/@gorgo/medusa-feed-yandex">npm</a> |
-  <a href="./examples/feed-yandex">пример</a> |
-  <a href="https://t.me/medusajs_yandex">поддержка в Telegram</a>
+  <a href="./examples/feed-yandex">пример</a>
 </p>
 
 ##
@@ -123,21 +137,32 @@
 │   ├── feed-yandex/
 │   ├── fulfillment-apiship/
 │   ├── payment-robokassa/
+│   ├── payment-tkassa/
+│   └── payment-yookassa/
+├── integration-tests/
+│   ├── 1c/
+│   ├── feed-yandex/
+│   ├── fulfillment-apiship/
+│   ├── payment-robokassa/
 │   └── payment-tkassa/
 ├── packages/
 │   ├── medusa-1c/
 │   ├── medusa-feed-yandex/
 │   ├── medusa-fulfillment-apiship/
 │   ├── medusa-payment-robokassa/
-│   └── medusa-payment-tkassa/
+│   ├── medusa-payment-tkassa/
+│   ├── medusa-payment-yookassa/
+│   └── utils/
+│       └── gorgo-telemetry/
 ├── scripts/
-└── www/
-    └── docs/
+└── docs/
+    ├── medusa-plugins/
+    └── tools/
 ```
 
 ### `packages/`
 
-Публикуемые плагины Medusa. Каждый NPM-пакет содержит исходный код, манифест, CHANGELOG и собственный README.
+Публикуемые плагины Medusa. Каждый NPM-пакет содержит исходный код, манифест, CHANGELOG и собственный README. Общие внутренние утилиты находятся в `packages/utils/` (например, `@gorgo/telemetry`).
 
 ### `examples/`
 
@@ -146,16 +171,24 @@
 - `medusa/` — backend с подключённым плагином.
 - `medusa-storefront/` — пример интеграции с витриной, когда плагину нужна frontend-часть.
 
+Корневой [examples/docker-compose.yml](examples/docker-compose.yml) поднимает PostgreSQL и pgAdmin для примеров. Подробнее — в [examples/README.md](examples/README.md).
+
+### `integration-tests/`
+
+Отдельные пакеты-воркспейсы, поднимающие реальное Medusa-приложение с подключённым плагином через `workspace:*`. См. раздел [Тесты](#тесты) ниже.
+
 ### `scripts/`
 
-Скрипты автоматизации репозитория.
+Скрипты автоматизации репозитория (обновление версии Medusa, генерация changeset'ов, релизные хелперы).
 
-### `www/docs/`
+### `docs/`
 
-Сайт документации, доступные по адресам:
+Контент документации (MDX + анонсы), доступный по адресам:
 
 - [docs.gorgojs.com](https://docs.gorgojs.com)
 - [docs.gorgojs.ru](https://docs.gorgojs.ru)
+
+В `medusa-plugins/` лежит документация по плагинам; в `tools/` — документация по сопутствующим CLI, например [`create-medusa-plugin`](https://docs.gorgojs.ru/tools/create-medusa-plugin).
 
 ## Установка и разработка
 
@@ -183,6 +216,31 @@ yarn dev
 - [examples/fulfillment-apiship/README.md](examples/fulfillment-apiship/README.md)
 - [examples/payment-robokassa/README.md](examples/payment-robokassa/README.md)
 - [examples/payment-tkassa/README.md](examples/payment-tkassa/README.md)
+- [examples/payment-yookassa/README.md](examples/payment-yookassa/README.md)
+
+## Тесты
+
+В репозитории есть два вида тестов, оркестрируемых [Turborepo](https://turborepo.com):
+
+- **Юнит-тесты** расположены рядом с исходниками каждого плагина (`packages/medusa-<plugin>/src/**/__tests__/*.unit.spec.ts`).
+- **Интеграционные тесты** находятся в отдельных пакетах (`integration-tests/<plugin>/`) — они поднимают реальное Medusa-приложение с подключённым плагином через `workspace:*`. Требования и запуск — в [integration-tests/README.md](integration-tests/README.md).
+
+Из корня монорепозитория:
+
+```bash
+yarn test:unit                # юнит-тесты всех пакетов в packages/medusa-*
+yarn test:integration         # интеграционные тесты всех пакетов в integration-tests/*
+yarn test:changed             # юнит + интеграция только для пакетов, изменённых относительно origin/main
+```
+
+Из директории конкретного плагина (при активной разработке):
+
+```bash
+cd packages/medusa-<plugin>
+yarn test:unit
+```
+
+CI запускает юнит-тесты на каждый PR (только для изменённых плагинов) и полный набор при пуше в `main` и через `workflow_dispatch`. См. [.github/workflows/test.yml](.github/workflows/test.yml).
 
 ## Как внести вклад
 
@@ -198,12 +256,16 @@ yarn dev
     ```
     feat(scope): commit message
     ```
-    Доступные значения scope:
+    Scope'ы пакетов:
    - `1c`
    - `feed-yandex`
    - `fulfillment-apiship`
    - `payment-robokassa`
    - `payment-tkassa`
+   - `payment-yookassa`
+   - `gorgo-telemetry`
+
+    Плюс scope'ы уровня репозитория: `deps`, `release`, `docs`, `root`. Текущий список можно вывести командой `yarn scopes`.
 
 ## Лицензия
 

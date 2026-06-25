@@ -20,16 +20,16 @@ Robokassa Payments for Medusa
 
 <p align="center">
   <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Medusa-^2.7.0-blue?logo=medusa" alt="Medusa" />
+    <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />
   </a>
-  <a href="https://medusajs.com">
-    <img src="https://img.shields.io/badge/Tested_with_Medusa-v2.15.3-green?logo=checkmarx" alt="Medusa" />
+  <a href="https://github.com/gorgojs/medusa-plugins/actions/workflows/update-medusa-version.yml">
+    <img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/gorgojs/medusa-plugins/main/.badges/medusa-payment-robokassa.json&logo=checkmarx" alt="Medusa" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://t.me/medusajs_robokassa">
-    <img src="https://img.shields.io/badge/Telegram-Medusa.js⊷Robokassa_Support_Chat-0088cc?logo=telegram&style=social" alt="Medusa.js⊷Robokassa on Telegram" />
+  <a href="https://t.me/gorgojs_chat">
+    <img src="https://img.shields.io/badge/Telegram-Support_Chat-0088cc?logo=telegram&style=social" alt="Telegram Support Chat" />
   </a>
 </p>
 
@@ -41,36 +41,30 @@ Robokassa Payments for Medusa
 
 ## Plugin Features
 
-- **Full Integration with Robokassa**  
-  Connect your store to Robokassa for secure and reliable payments.
-- **Receipt Generation**  
-  Online receipts compliant with Federal Law No. 54.
-- **One-Step & Two-Step Payments**  
-  Autocapture or authorization/hold payment flows.
-- **Refunds & Cancellations**  
-  Refund and order cancellation support.
-- **Webhook Notifications**  
-  Real-time payment status updates with signature verification.
-- **Test Mode**  
-  Simulate payments without real charges.
-- **Detailed Logging**  
-  Request and response logs for debugging and support in development mode.
-- **Storefront Example**  
-  A complete <a href="https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-robokassa/medusa-storefront" target="_blank">Next.js storefront</a> ready to use as a reference.
+- **Production-Ready:** Proven in live stores and ready for real-world deployment.
+- **Full Integration with Robokassa:** Connect your store to Robokassa for secure and reliable payments.
+- **Receipt Generation:** Online receipts compliant with Federal Law No. 54.
+- **One-Step & Two-Step Payments:** Autocapture or authorization/hold payment flows.
+- **Refunds & Cancellations:** Refund and order cancellation support.
+- **Webhook Notifications:** Real-time payment status updates with signature verification.
+- **Test Mode:** Simulate payments without real charges.
+- **Detailed Logging:** Request and response logs for debugging and support in development mode.
+- **Full Test Coverage:** Comprehensive unit and integration tests covering core flows and edge cases.
+- **Storefront Example:** A complete <a href="https://github.com/gorgojs/medusa-plugins/tree/main/examples/payment-robokassa/medusa-storefront" target="_blank">Next.js storefront</a> ready to use as a reference.
 
-## What is Robokassa?
+## What is Robokassa
 
 <a href="https://robokassa.com" target="_blank">Robokassa</a> is a Russian payment aggregator that supports bank cards, e-wallets, mobile payments, SBP, and other methods. It's widely used by small and mid-size online stores in Russia for its simple integration and broad payment method coverage.
 
 ## 💬  Support & Community
 
-Got questions or ideas about the plugin? Join the Telegram support chat — [@medusajs_robokassa](https://t.me/medusajs_robokassa)
+Got questions or ideas about the plugin? Join the Telegram support chat — [@gorgojs_chat](https://t.me/gorgojs_chat)
 
 Connect with other Medusa developers on Telegram — [@medusajs_chat](https://t.me/medusajs_chat)
 
 ## Requirements
 
-- Medusa v2.7.0 or later
+- Medusa v2.14.0 or later
 - Node.js v20 or later
 - A Robokassa account – [sign in or create one](https://login.robokassa.ru/reg?promoCode=gorgo) 
 

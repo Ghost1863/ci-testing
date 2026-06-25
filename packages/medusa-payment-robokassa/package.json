@@ -1,6 +1,6 @@
 {
   "name": "@gorgo/medusa-payment-robokassa",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "Robokassa payment provider for Medusa",
   "files": [
     ".medusa/server"
@@ -36,33 +36,30 @@
     "build": "medusa plugin:build",
     "dev": "yarn predev && medusa plugin:develop",
     "predev": "medusa plugin:publish",
-    "prepublishOnly": "medusa plugin:build"
+    "prepublishOnly": "medusa plugin:build",
+    "test:unit": "jest --config jest.config.js"
   },
   "dependencies": {
-    "@gorgo/telemetry": "^1.0.0",
-    "base64url": "^3.0.1",
-    "fast-xml-parser": "^5.2.5",
-    "md5": "^2.3.0"
+    "@gorgo/telemetry": "^1.0.1",
+    "axios": "^1.9.0",
+    "fast-xml-parser": "^5.2.5"
   },
   "devDependencies": {
-    "@medusajs/admin-sdk": "^2.7.0",
-    "@medusajs/cli": "^2.7.0",
-    "@medusajs/framework": "^2.7.0",
-    "@medusajs/icons": "^2.7.0",
-    "@medusajs/medusa": "^2.7.0",
-    "@medusajs/test-utils": "^2.7.0",
-    "@medusajs/ui": "^4.0.8",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "@swc/core": "1.5.7",
+    "@medusajs/admin-sdk": "^2.14.0",
+    "@medusajs/cli": "^2.14.0",
+    "@medusajs/framework": "^2.14.0",
+    "@medusajs/icons": "^2.14.0",
+    "@medusajs/medusa": "^2.14.0",
+    "@medusajs/test-utils": "^2.14.0",
+    "@medusajs/ui": "^4.0.25",
+    "@swc/core": "^1.7.28",
+    "@swc/jest": "^0.2.36",
+    "@types/jest": "^29.5.13",
     "@types/node": "^22.13.11",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "awilix": "^8.0.1",
-    "pg": "^8.14.1",
+    "jest": "^29.7.0",
+    "msw": "^2.7.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -72,20 +69,13 @@
     "yalc": "^1.0.0-pre.53"
   },
   "peerDependencies": {
-    "@medusajs/admin-sdk": "^2.7.0",
-    "@medusajs/cli": "^2.7.0",
-    "@medusajs/framework": "^2.7.0",
-    "@medusajs/icons": "^2.7.0",
-    "@medusajs/medusa": "^2.7.0",
-    "@medusajs/test-utils": "^2.7.0",
-    "@medusajs/ui": "^4.0.8",
-    "@mikro-orm/cli": "6.4.3",
-    "@mikro-orm/core": "6.4.3",
-    "@mikro-orm/knex": "6.4.3",
-    "@mikro-orm/migrations": "6.4.3",
-    "@mikro-orm/postgresql": "6.4.3",
-    "awilix": "^8.0.1",
-    "pg": "^8.14.1"
+    "@medusajs/admin-sdk": "^2.14.0",
+    "@medusajs/cli": "^2.14.0",
+    "@medusajs/framework": "^2.14.0",
+    "@medusajs/icons": "^2.14.0",
+    "@medusajs/medusa": "^2.14.0",
+    "@medusajs/test-utils": "^2.14.0",
+    "@medusajs/ui": "^4.0.25"
   },
   "engines": {
     "node": ">=20"
