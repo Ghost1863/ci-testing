@@ -79,11 +79,3 @@ jobs:
           commit: 'chore: release packages'
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-  notify-docs:
-    needs: publish
-    if: needs.publish.outputs.published == 'true' || needs.publish.outputs.docs_changed == 'true'
-    uses: ./.github/workflows/notify-deploy-docs.yml
-    with:
-      from_publish: true
-    secrets: inherit
