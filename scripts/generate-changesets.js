@@ -91,9 +91,9 @@ function getCommitsSince(ref) {
         hash:         hash?.trim(),
         type:         type?.trim(),
         scopes:       scope ? scope.split(',').map(s => s.trim()) : [],
-        desc:         desc?.trim(),
-        body:         body || null,
+        desc:         desc?.trim().replace(/\s*\(#\d+\)$/, ''),
         isBreaking:   !!breaking || hasBreakingFooter,
+        breakingNote: hasBreakingFooter ? body.match(/^BREAKING CHANGE:\s*(.+)/m)?.[1] : null,
       }
     })
     .filter(Boolean)
@@ -165,7 +165,7 @@ async function main() {
       `commit: ${commit.hash}`,
       ...(author ? [`author: @${author}`] : []),
       commit.desc,
-      ...(commit.body ? ['', commit.body] : []),
+      ...(commit.breakingNote ? ['', `BREAKING CHANGE: ${commit.breakingNote}`] : []),
       '',
     ].join('\n')
 
