@@ -1,0 +1,63 @@
+name: Notify Deploy Docs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  notify:
+    name: Notify Private Repo
+    runs-on: ubuntu-latest
+    if: github.repository == 'gorgojs/medusa-plugins'
+
+    steps:
+    - name: Skip if publish owns this push
+      id: guard
+      if: ${{ !inputs.from_publish && github.event_name == 'push' }}
+      uses: actions/github-script@v9
+      with:
+        script: |
+          const files = (context.payload.commits || []).flatMap(c =>
+            [...(c.added || []), ...(c.modified || []), ...(c.removed || [])]
+          )
+          if (files.some(f => f.startsWith('packages/'))) {
+            core.setOutput('skip', 'true')
+          }
+
+    - name: Generate GitHub App token
+      if: steps.guard.outputs.skip != 'true'
+      id: app-token
+      uses: actions/create-github-app-token@v3
+      with:
+        client-id: ${{ secrets.GH_APP_CLIENT_ID }}
+        private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        owner: gorgojs
+        repositories: automation
+
+    - name: Notify automation about docs changes
+      if: steps.guard.outputs.skip != 'true'
+      uses: actions/github-script@v9
+      with:
+        github-token: ${{ steps.app-token.outputs.token }}
+        script: |
+          console.log('Notifying automation about docs changes...')
+
+          await github.rest.repos.createDispatchEvent({
+            owner: 'gorgojs',
+            repo: 'automation',
+            event_type: 'gorgo-docs-updated',
+            client_payload: {
+              commit: context.sha,
+              ref: context.ref,
+              repository: context.payload.repository.full_name,
+              pusher: context.payload.pusher?.name || 'unknown',
+              head_commit: {
+                message: context.payload.head_commit?.message || 'No message',
+                timestamp: context.payload.head_commit?.timestamp || new Date().toISOString()
+              },
+              changed_paths: context.payload.commits?.map(c => 
+                [...(c.added || []), ...(c.modified || []), ...(c.removed || [])]
+              ).flat() || []
+            }
+          })
+          
+          console.log('Successfully notified automation for deployment')

@@ -17,7 +17,7 @@
 </p>
 
 <br/>
-   
+
 <p align="center">
   <a href="https://medusajs.com">
     <img src="https://img.shields.io/badge/Medusa-^2.14.0-blue?logo=medusa" alt="Medusa" />

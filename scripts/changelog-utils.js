@@ -68,10 +68,14 @@ export function sectionForSha(sha) {
   let section = null
   if (text) {
     const [subject, ...rest] = text.split('\n')
-    const m = subject.match(SUBJECT_RE)
-    if (m) {
-      const breaking = !!m.groups.breaking || /^BREAKING CHANGE:/m.test(rest.join('\n'))
-      section = breaking ? 'breaking' : (TYPE_TO_SECTION[m.groups.type.toLowerCase()] ?? 'other')
+    const body = rest.join('\n')
+    if (/^Highlight:\s*(true|yes)\b/im.test(body)) section = 'highlights'
+    else {
+      const m = subject.match(SUBJECT_RE)
+      if (m) {
+        const breaking = !!m.groups.breaking || /^BREAKING CHANGE:/m.test(body)
+        section = breaking ? 'breaking' : (TYPE_TO_SECTION[m.groups.type.toLowerCase()] ?? 'other')
+      }
     }
   }
   typeCache.set(sha, section)
@@ -117,8 +121,8 @@ export function regroupChangelog(md, sectionFor) {
 export function bullets(body) {
   return body
     .split(/\n{2,}/)
-    .map(c => c.replace(/\s+$/, ''))
-    .filter(c => c.trim().length && c.trimStart().startsWith('- '))
+    .map(c => c.trim())
+    .filter(c => c.length && c.startsWith('- '))
 }
 
 export function regroupBlock(block, sectionFor) {

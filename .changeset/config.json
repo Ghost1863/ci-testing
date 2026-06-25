@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
-  "changelog": ["./changelog.cjs", { "repo": "gorgojs/medusa-plugins" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "Ghost1863/ci-testing" }],
   "commit": false,
   "fixed": [],
   "linked": [],

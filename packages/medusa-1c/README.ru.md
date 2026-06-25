@@ -15,7 +15,7 @@
   <br/>
   <a href="https://github.com/gorgojs/medusa-plugins/blob/HEAD/packages/medusa-1c/README.md">Read README in English ↗</a>
 </p>
- 
+
 <br/>
 
 <p align="center">
