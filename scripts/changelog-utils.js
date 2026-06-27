@@ -118,11 +118,28 @@ export function regroupChangelog(md, sectionFor) {
   return [header, ...blocks.map(b => regroupBlock(b, sectionFor))].join('\n')
 }
 
+export function formatNewestBlock(md, sectionFor) {
+  const { header, blocks } = parseChangelog(md)
+  if (!blocks.length) return md
+  const [newest, ...rest] = blocks
+  return [header, regroupBlock(reformatChangelog(newest), sectionFor), ...rest].join('\n')
+}
+
 export function bullets(body) {
-  return body
-    .split(/\n{2,}/)
-    .map(c => c.trim())
-    .filter(c => c.length && c.startsWith('- '))
+  const items = []
+  let cur = null
+  for (const line of body.split('\n')) {
+    if (/^- /.test(line)) {
+      if (cur !== null) items.push(cur)
+      cur = line
+    } else if (/^#{1,6} /.test(line)) {
+      if (cur !== null) { items.push(cur); cur = null }
+    } else if (cur !== null) {
+      cur += '\n' + line
+    }
+  }
+  if (cur !== null) items.push(cur)
+  return items.map(c => c.replace(/\s+$/, '')).filter(c => c.length)
 }
 
 export function regroupBlock(block, sectionFor) {
