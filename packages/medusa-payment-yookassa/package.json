@@ -1,6 +1,6 @@
 {
   "name": "@gorgo/medusa-payment-yookassa",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "YooKassa payment provider for Medusa",
   "files": [
     ".medusa/server"
@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@a2seven/yoo-checkout": "^1.1.4",
-    "@gorgo/telemetry": "^1.0.1",
+    "@gorgo/telemetry": "^1.1.1",
     "axios": "^1.9.0"
   },
   "devDependencies": {

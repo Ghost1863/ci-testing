@@ -1,5 +1,16 @@
 # @gorgo/medusa-1c
 
+## 0.3.0
+
+### Features
+
+- feature A by [@Ghost1863](https://github.com/Ghost1863) in [`2a2df99`](https://github.com/Ghost1863/ci-testing/commit/2a2df9969574066e81d530d8453b0dceb7acbd81)
+
+### Dependencies
+
+- Updated dependencies:
+  - @gorgo/telemetry@1.1.1
+
 ## 0.2.1
 
 ### Bug Fixes
