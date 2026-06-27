@@ -90,7 +90,7 @@ const BULLET_RE = /^- (\[#\d+\]\([^)]*\) )?(\[`[0-9a-f]{7,40}`\]\([^)]*\) )?(?:T
 
 export function reformatBulletLine(line) {
   const m = line.match(BULLET_RE)
-  if (!m) return line
+  if (!m) return line.replace(/^- Updated dependencies \[\]:/, '- Updated dependencies:')
   const pr = m[1] ? m[1].trim() : null
   const commit = m[2] ? m[2].trim() : null
   const user = m[3] || null
@@ -147,7 +147,7 @@ export function regroupBlock(block, sectionFor) {
   const heading = nl === -1 ? block : block.slice(0, nl)
   const body = nl === -1 ? '' : block.slice(nl + 1)
 
-  if (!SHA_RE.test(body)) return block
+  if (!SHA_RE.test(body) && !/^\s*- Updated dependencies/m.test(body)) return block
 
   const items = bullets(body)
   if (!items.length) return block
