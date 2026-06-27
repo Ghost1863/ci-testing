@@ -1,6 +1,6 @@
 {
 	"name": "@gorgo/medusa-1c",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"description": "Medusa plugin for integration with 1C:Enterprise",
 	"repository": {
 		"type": "git",
@@ -49,7 +49,7 @@
 		"prepublishOnly": "medusa plugin:build"
 	},
 	"dependencies": {
-		"@gorgo/telemetry": "^1.0.1",
+		"@gorgo/telemetry": "^1.1.1",
 		"body-parser": "^1.20.5",
 		"commerceml-parser": "^3.0.3",
 		"commerceml-parser-core": "^2.1.3",

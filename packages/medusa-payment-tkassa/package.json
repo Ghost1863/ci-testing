@@ -1,6 +1,6 @@
 {
   "name": "@gorgo/medusa-payment-tkassa",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "T-Kassa payment provider for Medusa",
   "files": [
     ".medusa/server"
@@ -46,7 +46,7 @@
     "test:unit": "jest --config jest.config.js"
   },
   "dependencies": {
-    "@gorgo/telemetry": "^1.0.1",
+    "@gorgo/telemetry": "^1.1.1",
     "t-kassa-api": "^1.0.6"
   },
   "devDependencies": {
