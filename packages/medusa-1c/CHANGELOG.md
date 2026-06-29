@@ -1,5 +1,11 @@
 # @gorgo/medusa-1c
 
+## 0.4.0
+
+### Highlights
+
+- shiny highlighted feature by [@Ghost1863](https://github.com/Ghost1863) in [`7c5158e`](https://github.com/Ghost1863/ci-testing/commit/7c5158e85fd4213d539a51bbf9213bf3b8d90ae6)
+
 ## 0.3.0
 
 ### Features

@@ -1,5 +1,11 @@
 # @gorgo/medusa-payment-yookassa
 
+## 1.0.8
+
+### Bug Fixes
+
+- only-changed test by [@Ghost1863](https://github.com/Ghost1863) in [`7c71eb3`](https://github.com/Ghost1863/ci-testing/commit/7c71eb3eea2a6f77cbfa8bb7703f785a15447504)
+
 ## 1.0.7
 
 ### Bug Fixes
