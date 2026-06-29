@@ -38,7 +38,7 @@
     <img src="https://img.shields.io/badge/Telegram-Medusa.js_Dev_Community_Chat-0088cc?logo=telegram&style=social" alt="Medusa.js Chat on Telegram" />
   </a>
 </p>
-
+ 
 ## Status
 
 > 🚧 Work in progress, see the [Roadmap](#roadmap).  
